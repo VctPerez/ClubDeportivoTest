@@ -178,6 +178,15 @@ public class GrupoTest {
                 "Los string deben coincidir");
     }
 
+    @Test
+    public void Equals_CodigoDiferente_DevuelveFalso() throws ClubException {
+        Grupo g1 = new Grupo("test1", "test", 5, 2, 2);
+        Grupo g2 = new Grupo("test2", "test", 5, 2, 2);
+
+        assertNotEquals(g1, g2);
+    }
+
+
 
 
 }
