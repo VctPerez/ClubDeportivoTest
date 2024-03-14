@@ -80,4 +80,12 @@ public class GrupoTest {
         assertEquals(2, g.getMatriculados(), "El numero de matriculados debe ser: 2.");
     }
 
+    @Test
+    public void GetTarifa_DevuelveTarifa() throws ClubException {
+
+        Grupo g = new Grupo("test", "test", 5, 2, 2);
+
+        assertEquals(2, g.getTarifa(), "La tarifa debe ser: 2.");
+    }
+
 }
