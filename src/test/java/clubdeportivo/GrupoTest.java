@@ -72,4 +72,12 @@ public class GrupoTest {
         assertEquals(5, g.getPlazas(), "El numero de plazas debe ser: 5.");
     }
 
+    @Test
+    public void GetMatriculados_DevuelveNumeroDeMatriculados() throws ClubException {
+
+        Grupo g = new Grupo("test", "test", 5, 2, 2);
+
+        assertEquals(2, g.getMatriculados(), "El numero de matriculados debe ser: 2.");
+    }
+
 }
