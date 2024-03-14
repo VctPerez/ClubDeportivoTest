@@ -133,6 +133,15 @@ public class GrupoTest {
         assertEquals(7, g.getPlazas(), "El numero de plazas debe haber cambiado a 7");
     }
 
+    @Test
+    public void Matricular_NoHayPlazasLibres_LanzaClubException() throws ClubException {
+        Grupo g = new Grupo("test", "test", 5,5,2);
+
+        assertThrows(ClubException.class,
+                () -> g.matricular(1),
+                "Sin plazas libres para matircular, deberia lanzar una ClubException.");
+    }
+
 
 
 }
