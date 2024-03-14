@@ -170,6 +170,14 @@ public class GrupoTest {
         assertEquals(4, g.getMatriculados(), "El numero de matriculados deberia ser 4.");
     }
 
+    @Test
+    public void ToString_ReturnsCorrectFormatString() throws ClubException {
+        Grupo g = new Grupo("test", "test", 5,2, 2);
+
+        assertEquals("(test - test - 2.0 euros - P:5 - M:2)", g.toString(),
+                "Los string deben coincidir");
+    }
+
 
 
 }
