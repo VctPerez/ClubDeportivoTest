@@ -4,8 +4,7 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
 
-import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
-import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class GrupoTest {
 
@@ -48,6 +47,15 @@ public class GrupoTest {
         assertDoesNotThrow(() -> new Grupo("test", "test", 5,2,2),
                 "Este test no deberia lanzar ninguna excepcion");
     }
+
+    @Test
+    public void GetCodigo_DevuelveCodigo() throws ClubException {
+
+        Grupo g = new Grupo("test", "test", 5, 2, 2);
+
+        assertEquals("test", g.getCodigo(), "El codigo debe ser: test.");
+    }
+
 
 
 }
