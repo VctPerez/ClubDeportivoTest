@@ -186,6 +186,14 @@ public class GrupoTest {
         assertNotEquals(g1, g2);
     }
 
+    @Test
+    public void Equals_ActividadDiferente_DevuelveFalso() throws ClubException {
+        Grupo g1 = new Grupo("test", "test1", 5, 2, 2);
+        Grupo g2 = new Grupo("test", "test2", 5, 2, 2);
+
+        assertNotEquals(g1, g2);
+    }
+
 
 
 
