@@ -64,6 +64,12 @@ public class GrupoTest {
         assertEquals("test", g.getActividad(), "La actividad debe ser: test.");
     }
 
+    @Test
+    public void GetPlazas_DevuelveNumeroDePlazas() throws ClubException {
 
+        Grupo g = new Grupo("test", "test", 5, 2, 2);
+
+        assertEquals(5, g.getPlazas(), "El numero de plazas debe ser: 5.");
+    }
 
 }
