@@ -202,6 +202,15 @@ public class GrupoTest {
         assertEquals(g1, g2);
     }
 
+    @Test
+    public void Equals_DistintoTipo_DevuelveFalso() throws ClubException {
+        Grupo g = new Grupo("test" , "test", 5, 2, 2);
+        String string = "string";
+
+        assertNotEquals(g, string); 
+
+    }
+
 
 
 
