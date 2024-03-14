@@ -160,6 +160,16 @@ public class GrupoTest {
                 "Sin plazas libres para matircular, deberia lanzar una ClubException.");
     }
 
+    @Test
+    public void Matricular_ParametroValido_AnyadeLosMatriculados() throws ClubException {
+        Grupo g = new Grupo("test", "test", 5, 2, 2);
+
+        g.matricular(2);
+
+        assertNotEquals(2, g.getMatriculados(), "El numero de matriculados no debe ser 2.");
+        assertEquals(4, g.getMatriculados(), "El numero de matriculados deberia ser 4.");
+    }
+
 
 
 }
