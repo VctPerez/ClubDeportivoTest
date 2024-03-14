@@ -123,6 +123,16 @@ public class GrupoTest {
                 "Con n menor que nMatriculados, deberia lanzar ClubException.");
     }
 
-    
+    @Test
+    public void ActualizarPlazas_ParametroValido_CambiaNPlazas() throws ClubException {
+        Grupo g = new Grupo("test", "test", 5, 2, 2);
+
+        g.actualizarPlazas(7);
+
+        assertNotEquals(5, g.getPlazas(), "El numero de plazas no deberia ser el mismo");
+        assertEquals(7, g.getPlazas(), "El numero de plazas debe haber cambiado a 7");
+    }
+
+
 
 }
