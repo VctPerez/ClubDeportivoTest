@@ -151,6 +151,15 @@ public class GrupoTest {
                 "Con n negativo, deberia lanzar una ClubException.");
     }
 
+    @Test
+    public void Matricular_nCero_LanzaClubException() throws ClubException {
+        Grupo g = new Grupo("test", "test", 5,5,2);
+
+        assertThrows(ClubException.class,
+                () -> g.matricular(0),
+                "Sin plazas libres para matircular, deberia lanzar una ClubException.");
+    }
+
 
 
 }
