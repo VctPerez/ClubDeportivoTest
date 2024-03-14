@@ -96,4 +96,13 @@ public class GrupoTest {
         assertEquals(3, g.plazasLibres(), "El codigo debe ser: test.");
     }
 
+    @Test
+    public void ActualizarPlazas_nNegativo_LanzaClubExcepcion() throws ClubException {
+        Grupo g = new Grupo("test", "test", 5, 2, 2);
+
+        assertThrows(ClubException.class,
+                () -> g.actualizarPlazas(-2),
+                "Con n negativo, deberia lanzar una ClubException");
+    }
+
 }
