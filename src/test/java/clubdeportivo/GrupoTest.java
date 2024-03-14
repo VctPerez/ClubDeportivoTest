@@ -9,7 +9,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 public class GrupoTest {
 
     @Test
-    public void GrupoConstructor_nPlazasNegativaOrCero_LanzaClubException(){
+    public void GrupoConstructor_nPlazasNegativaOCero_LanzaClubException(){
         assertThrows(ClubException.class,
                 () -> new Grupo("test", "test", -1, 0, 1),
                 "Con plazas negativas, se deberia lanzar una ClubException.");
@@ -25,7 +25,15 @@ public class GrupoTest {
                 "Con matriculados negativos, se deberia lanzar una ClubException");
     }
 
-    
+    @Test
+    public void GrupoConstructor_tarifaNegativaOCero_LanzaClubException(){
+        assertThrows(ClubException.class,
+                () -> new Grupo("test", "test", 1, 0, -1),
+                "Con tarifa negativa, se deberia lanzar una ClubException.");
+        assertThrows(ClubException.class,
+                () -> new Grupo("test", "test", 1, 0, 0),
+                "Con tarifa cero, se deberia lanzar una ClubException.");
+    }
 
 
 
