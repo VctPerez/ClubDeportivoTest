@@ -4,6 +4,7 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
 
+import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public class GrupoTest {
@@ -42,7 +43,11 @@ public class GrupoTest {
                 "Con matriculados > NPlazas, deberia lanzar CLubException.");
     }
 
-
+    @Test
+    public void GrupoConstructor_ParametrosValidos_NoLanzaClubException(){
+        assertDoesNotThrow(() -> new Grupo("test", "test", 5,2,2),
+                "Este test no deberia lanzar ninguna excepcion");
+    }
 
 
 }
