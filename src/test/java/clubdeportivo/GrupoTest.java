@@ -35,6 +35,13 @@ public class GrupoTest {
                 "Con tarifa cero, se deberia lanzar una ClubException.");
     }
 
+    @Test
+    public void GrupoContructor_MatriculadosMayorQueNPlazas_ThrowsClubException(){
+        assertThrows(ClubException.class,
+                () -> new Grupo("test", "test", 1, 2, 1),
+                "Con matriculados > NPlazas, deberia lanzar CLubException.");
+    }
+
 
 
 
