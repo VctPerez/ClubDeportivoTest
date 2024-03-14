@@ -105,4 +105,13 @@ public class GrupoTest {
                 "Con n negativo, deberia lanzar una ClubException");
     }
 
+    @Test
+    public void ActualizarPlazas_nCero_LanzaClubExcepcion() throws ClubException {
+        Grupo g = new Grupo("test", "test", 5, 2, 2);
+
+        assertThrows(ClubException.class,
+                () -> g.actualizarPlazas(0),
+                "Con n igual a cero, deberia lanzar una ClubException");
+    }
+
 }
