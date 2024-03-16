@@ -38,7 +38,7 @@ public class ClubDeportivo {
 			double tarifa = Double.parseDouble(datos[4]);
 			Grupo g = new Grupo(datos[0], datos[1], plazas, matriculados, tarifa);
 			anyadirActividad(g);
-		} catch (NumberFormatException e) {
+		} catch (NumberFormatException | NullPointerException | ArrayIndexOutOfBoundsException e) {
 			throw new ClubException("ERROR: formato de número incorrecto");
 		}
 	}
