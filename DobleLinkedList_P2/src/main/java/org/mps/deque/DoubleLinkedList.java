@@ -1,7 +1,6 @@
 package org.mps.deque;
 
 public class DoubleLinkedList<T> implements DoubleLinkedQueue<T> {
-
     private LinkedNode<T> first;
     private LinkedNode<T> last;
     private int size;
