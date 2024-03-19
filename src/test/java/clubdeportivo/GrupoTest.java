@@ -9,7 +9,7 @@ import static org.junit.jupiter.api.Assertions.*;
 public class GrupoTest {
 
     @Test
-    public void GrupoConstructor_nPlazasNegativaOCero_LanzaClubException(){
+    public void GrupoConstructor_nPlazasNegativaOCero_LanzaClubException() {
         assertThrows(ClubException.class,
                 () -> new Grupo("test", "test", -1, 0, 1),
                 "Con plazas negativas, se deberia lanzar una ClubException.");
@@ -19,14 +19,14 @@ public class GrupoTest {
     }
 
     @Test
-    public void GrupoConstructor_matriculadosNegativos_LanzaClubException(){
+    public void GrupoConstructor_matriculadosNegativos_LanzaClubException() {
         assertThrows(ClubException.class,
                 () -> new Grupo("test", "test", 1, -1, 1),
                 "Con matriculados negativos, se deberia lanzar una ClubException");
     }
 
     @Test
-    public void GrupoConstructor_tarifaNegativaOCero_LanzaClubException(){
+    public void GrupoConstructor_tarifaNegativaOCero_LanzaClubException() {
         assertThrows(ClubException.class,
                 () -> new Grupo("test", "test", 1, 0, -1),
                 "Con tarifa negativa, se deberia lanzar una ClubException.");
@@ -36,64 +36,76 @@ public class GrupoTest {
     }
 
     @Test
-    public void GrupoContructor_MatriculadosMayorQueNPlazas_ThrowsClubException(){
+    public void GrupoContructor_MatriculadosMayorQueNPlazas_ThrowsClubException() {
         assertThrows(ClubException.class,
                 () -> new Grupo("test", "test", 1, 2, 1),
                 "Con matriculados > NPlazas, deberia lanzar CLubException.");
     }
 
     @Test
-    public void GrupoConstructor_ParametrosValidos_NoLanzaClubException(){
-        assertDoesNotThrow(() -> new Grupo("test", "test", 5,2,2),
+    public void GrupoConstructor_ParametrosValidos_NoLanzaClubException() {
+        assertDoesNotThrow(() -> new Grupo("test", "test", 5, 2, 2),
                 "Este test no deberia lanzar ninguna excepcion");
     }
 
     @Test
     public void GetCodigo_DevuelveCodigo() throws ClubException {
-
         Grupo g = new Grupo("test", "test", 5, 2, 2);
+        String codigo;
 
-        assertEquals("test", g.getCodigo(), "El codigo debe ser: test.");
+        codigo = g.getCodigo();
+
+        assertEquals("test", codigo, "El codigo debe ser: test.");
     }
 
     @Test
     public void GetActividad_DevuelveActividad() throws ClubException {
-
         Grupo g = new Grupo("test", "test", 5, 2, 2);
+        String actividad;
 
-        assertEquals("test", g.getActividad(), "La actividad debe ser: test.");
+        actividad = g.getActividad();
+
+        assertEquals("test", actividad, "La actividad debe ser: test.");
     }
 
     @Test
     public void GetPlazas_DevuelveNumeroDePlazas() throws ClubException {
-
         Grupo g = new Grupo("test", "test", 5, 2, 2);
+        int plazas;
 
-        assertEquals(5, g.getPlazas(), "El numero de plazas debe ser: 5.");
+        plazas = g.getPlazas();
+
+        assertEquals(5, plazas, "El numero de plazas debe ser: 5.");
     }
 
     @Test
     public void GetMatriculados_DevuelveNumeroDeMatriculados() throws ClubException {
-
         Grupo g = new Grupo("test", "test", 5, 2, 2);
+        int matriculados;
 
-        assertEquals(2, g.getMatriculados(), "El numero de matriculados debe ser: 2.");
+        matriculados = g.getMatriculados();
+
+        assertEquals(2, matriculados, "El numero de matriculados debe ser: 2.");
     }
 
     @Test
     public void GetTarifa_DevuelveTarifa() throws ClubException {
-
         Grupo g = new Grupo("test", "test", 5, 2, 2);
+        double tarifa;
 
-        assertEquals(2, g.getTarifa(), "La tarifa debe ser: 2.");
+        tarifa = g.getTarifa();
+
+        assertEquals(2, tarifa, "La tarifa debe ser: 2.");
     }
 
     @Test
     public void PlazasLibres_DevuelvePlazasLibres() throws ClubException {
-
         Grupo g = new Grupo("test", "test", 5, 2, 2);
+        int plazasLibres;
 
-        assertEquals(3, g.plazasLibres(), "El codigo debe ser: test.");
+        plazasLibres = g.plazasLibres();
+
+        assertEquals(3, plazasLibres, "El codigo debe ser: test.");
     }
 
     @Test
@@ -135,7 +147,7 @@ public class GrupoTest {
 
     @Test
     public void Matricular_NoHayPlazasLibres_LanzaClubException() throws ClubException {
-        Grupo g = new Grupo("test", "test", 5,5,2);
+        Grupo g = new Grupo("test", "test", 5, 5, 2);
 
         assertThrows(ClubException.class,
                 () -> g.matricular(1),
@@ -144,7 +156,7 @@ public class GrupoTest {
 
     @Test
     public void Matricular_nNegativo_LanzaClubException() throws ClubException {
-        Grupo g = new Grupo("test", "test", 5,2,2);
+        Grupo g = new Grupo("test", "test", 5, 2, 2);
 
         assertThrows(ClubException.class,
                 () -> g.matricular(-1),
@@ -153,7 +165,7 @@ public class GrupoTest {
 
     @Test
     public void Matricular_nCero_LanzaClubException() throws ClubException {
-        Grupo g = new Grupo("test", "test", 5,5,2);
+        Grupo g = new Grupo("test", "test", 5, 5, 2);
 
         assertThrows(ClubException.class,
                 () -> g.matricular(0),
@@ -172,7 +184,7 @@ public class GrupoTest {
 
     @Test
     public void ToString_ReturnsCorrectFormatString() throws ClubException {
-        Grupo g = new Grupo("test", "test", 5,2, 2);
+        Grupo g = new Grupo("test", "test", 5, 2, 2);
 
         assertEquals("(test - test - 2.0 euros - P:5 - M:2)", g.toString(),
                 "Los string deben coincidir");
@@ -204,14 +216,18 @@ public class GrupoTest {
 
     @Test
     public void Equals_DistintoTipo_DevuelveFalso() throws ClubException {
-        Grupo g = new Grupo("test" , "test", 5, 2, 2);
+        Grupo g = new Grupo("test", "test", 5, 2, 2);
         String string = "string";
 
-        assertNotEquals(g, string); 
-
+        assertNotEquals(g, string);
     }
 
+    @Test
+    public void Hashcode_DevuelveHashcodeCodigoYActividad() throws ClubException {
+        Grupo g = new Grupo("test", "test", 5, 2, 2);
 
+        assertEquals("TEST".hashCode() * 2, g.hashCode());
+    }
 
 
 }
