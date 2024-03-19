@@ -67,7 +67,7 @@ public class DoubleLinkedList<T> implements DoubleLinkedQueue<T> {
 
     @Override
     public T first() {
-        if(first == null){
+        if(first == null) {
             throw new DoubleLinkedQueueException("First element does not exist");
         }
         return first.getItem();
@@ -75,7 +75,7 @@ public class DoubleLinkedList<T> implements DoubleLinkedQueue<T> {
 
     @Override
     public T last() {
-        if(last == null){
+        if(last == null) {
             throw new DoubleLinkedQueueException("Last element does not exist");
         }
         return last.getItem();
