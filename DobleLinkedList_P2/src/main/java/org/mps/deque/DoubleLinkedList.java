@@ -20,7 +20,10 @@ public class DoubleLinkedList<T> implements DoubleLinkedQueue<T> {
             first = new LinkedNode<>(value,null,null);
             last = first;
         } else {
-            first = new LinkedNode<>(value,null,first);
+            LinkedNode<T> newNode = new LinkedNode<>(value,null,first);
+            LinkedNode<T> temporalNode = first;
+            temporalNode.setPrevious(newNode);
+            first = newNode;
         }
         size++;
     }
@@ -34,7 +37,10 @@ public class DoubleLinkedList<T> implements DoubleLinkedQueue<T> {
             first = new LinkedNode<>(value,null,null);
             last = first;
         } else {
-            last = new LinkedNode<>(value,last,null);
+            LinkedNode<T> newNode = new LinkedNode<>(value,last,null);
+            LinkedNode<T> temporalNode = last;
+            temporalNode.setNext(newNode);
+            last = newNode;
         }
         size++;
     }

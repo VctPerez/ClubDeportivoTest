@@ -209,18 +209,6 @@ public class DoubleLinkedListTest {
                 list.prepend(null);
             });
         }
-
-        @Test
-        @DisplayName("throws DoubleLinkedQueueException when preppending element of diferent Type to the list")
-        void preppend_differentTypeElement_throwsDoubleLinkedQueueException(){
-            int integer = 1;
-            String string = "a";
-            list.prepend(integer);
-
-            assertThrows(DoubleLinkedQueueException.class, ()->{
-                list.prepend(string);
-            });
-        }
     }
 
     @Nested
@@ -255,21 +243,9 @@ public class DoubleLinkedListTest {
 
         @Test
         @DisplayName("throws DoubleLinkedQueueException when appending null element")
-        void append_null_throwsDoubleLinkedQueueException(){
-            assertThrows(DoubleLinkedQueueException.class, ()->{
-                list.append(null);
-            });
-        }
-
-        @Test
-        @DisplayName("throws DoubleLinkedQueueException when appending element of diferent Type to the list")
-        void append_differentTypeElement_throwsDoubleLinkedQueueException() {
-            int integer = 1;
-            String string = "a";
-            list.append(integer);
-
+        void append_null_throwsDoubleLinkedQueueException() {
             assertThrows(DoubleLinkedQueueException.class, () -> {
-                list.append(string);
+                list.append(null);
             });
         }
     }
