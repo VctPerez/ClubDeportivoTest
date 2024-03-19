@@ -23,6 +23,13 @@ public class ClubDeportivoTest {
     }
 
     @Test
+    public void ClubDeportivo_NombreNULL_ReturnTrue() {
+        String nombre = null;
+
+        assertThrows(ClubException.class,() -> new ClubDeportivo(nombre));
+    }
+
+    @Test
     public void ClubDeportivo_TamanoPositivo_ReturnTrue() {
         String nombre = "EjemploNombre";
         int tam = 5;
@@ -31,9 +38,17 @@ public class ClubDeportivoTest {
     }
 
     @Test
-    public void ClubDeportivo_TamanoPositivo_ReturnThrow() {
+    public void ClubDeportivo_TamanoNegativo_ReturnThrow() {
         String nombre = "EjemploNombre";
         int tam = -5;
+
+        assertThrows(ClubException.class, () -> new ClubDeportivo(nombre, tam));
+    }
+
+    @Test
+    public void ClubDeportivo_Tamano0_ReturnThrow() {
+        String nombre = "EjemploNombre";
+        int tam = 0;
 
         assertThrows(ClubException.class, () -> new ClubDeportivo(nombre, tam));
     }
@@ -50,11 +65,19 @@ public class ClubDeportivoTest {
             "Ejemplo,Ejemplo,12,2,",
             "Ejemplo,Ejemplo,12,,3",
             "Ejemplo,Ejemplo,,2,3",
+    })
+    public void anyadirActividad_ArrayDatosNULL_ReturnThrow(String codigo, String actividad, String nplazas, String nmatriculados, String tarifa) {
+        String[] datos = {codigo, actividad, nplazas, nmatriculados, tarifa};
+        assertThrows(ClubException.class, () -> club.anyadirActividad(datos));
+    }
+
+    @ParameterizedTest
+    @CsvSource({
             "Ejemplo,Ejemplo,12,2,hola",
             "Ejemplo,Ejemplo,12,hola,3",
             "Ejemplo,Ejemplo,hola,2,3",
     })
-    public void anyadirActividad_ArrayDatosInvalidos_ReturnThrow(String codigo, String actividad, String nplazas, String nmatriculados, String tarifa) {
+    public void anyadirActividad_ArrayFormatoInvalidos_ReturnThrow(String codigo, String actividad, String nplazas, String nmatriculados, String tarifa) {
         String[] datos = {codigo, actividad, nplazas, nmatriculados, tarifa};
         assertThrows(ClubException.class, () -> club.anyadirActividad(datos));
     }
@@ -108,12 +131,18 @@ public class ClubDeportivoTest {
     }
 
     @Test
-    public void plazasLibres_ActividadNoValida_ReturnTrue() {
+    public void plazasLibres_ActividadNoValida_ReturnTrue() throws ClubException {
         int expectedRes = 0;
 
         int res = club.plazasLibres("Ejemplo");
 
         assertEquals(expectedRes, res);
+    }
+
+    @Test
+    public void plazasLibres_ActividadNULL_ReturnThrow() throws ClubException {
+
+        assertThrows(ClubException.class,() -> club.plazasLibres(null));
     }
 
     @Test
@@ -134,6 +163,29 @@ public class ClubDeportivoTest {
         String actividad = "Ejemplo";
         int npersonas = 1;
         Grupo g = new Grupo("Ejemplo", actividad, 12, 12, 3.2);
+        club.anyadirActividad(g);
+
+        assertThrows(ClubException.class,()->club.matricular(actividad,npersonas));
+    }
+
+    @Test
+    public void matricular_PersonasNegativas_ReturnTrue() throws ClubException {
+        String actividad = "Ejemplo";
+        int npersonas = 0;
+        int expectedRes = club.plazasLibres("Ejemplo");
+        Grupo g = new Grupo("Ejemplo", actividad, 12, 12, 3.2);
+        club.anyadirActividad(g);
+
+        club.matricular(actividad,npersonas);
+
+        assertEquals(expectedRes,club.plazasLibres("Ejemplo"));
+    }
+
+    @Test
+    public void matricular_ActividadNULL_ReturnThrow() throws ClubException {
+        String actividad = null;
+        int npersonas = 1;
+        Grupo g = new Grupo("Ejemplo", "NULO", 12, 10, 3.2);
         club.anyadirActividad(g);
 
         assertThrows(ClubException.class,()->club.matricular(actividad,npersonas));
@@ -165,10 +217,19 @@ public class ClubDeportivoTest {
     }
 
     @Test
-    public void ingresos_ReturnTrue() throws ClubException {
+    public void ingresos_ConGrupos_ReturnTrue() throws ClubException {
         Grupo g = new Grupo("Ejemplo", "Ejemplo", 12, 11, 3.2);
         club.anyadirActividad(g);
         double expectedRes = 3.2 * 11;
+
+        double res = club.ingresos();
+
+        assertEquals(expectedRes,res);
+    }
+
+    @Test
+    public void ingresos_SinGrupos_ReturnTrue() {
+        double expectedRes = 0;
 
         double res = club.ingresos();
 

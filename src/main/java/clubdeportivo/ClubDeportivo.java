@@ -13,7 +13,7 @@ public class ClubDeportivo {
 	}
 
 	public ClubDeportivo(String nombre, int n) throws ClubException {
-		if (n <= 0) {
+		if (n <= 0 || nombre == null) {
 			throw new ClubException("ERROR: el club no puede crearse con un número de grupos 0 o negativo");
 		}
 		this.nombre = nombre;
@@ -56,16 +56,20 @@ public class ClubDeportivo {
 		}
 	}
 
-	public int plazasLibres(String actividad) {
-		int p = 0;
-		int i = 0;
-		while (i < ngrupos) {
-			if (grupos[i].getActividad().equals(actividad)) {
-				p += grupos[i].plazasLibres();
+	public int plazasLibres(String actividad) throws ClubException {
+		if(actividad != null){
+			int p = 0;
+			int i = 0;
+			while (i < ngrupos) {
+				if (grupos[i].getActividad().equals(actividad)) {
+					p += grupos[i].plazasLibres();
+				}
+				i++;
 			}
-			i++;
+			return p;
+		} else {
+			throw new ClubException("Actividad nula");
 		}
-		return p;
 	}
 
 	public void matricular(String actividad, int npersonas) throws ClubException {
