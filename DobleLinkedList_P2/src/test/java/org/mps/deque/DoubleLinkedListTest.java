@@ -9,7 +9,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 @DisplayName("A DoubleLinkedList")
 public class DoubleLinkedListTest {
-    DoubleLinkedList<Object> list;
+    DoubleLinkedList<Integer> list;
 
     @Test
     void DoubleLinkedListConstructor_initializesList() {
@@ -77,13 +77,15 @@ public class DoubleLinkedListTest {
     class Last {
         @Test
         @DisplayName("throws DoubleLinkedQueueException when consulting last element of empty list")
-        void first_emptyList_throwsDoubleLinkedQueueException() {
-            assertThrows(DoubleLinkedQueueException.class, () -> list.last());
+        void last_emptyList_throwsDoubleLinkedQueueException(){
+            assertThrows(DoubleLinkedQueueException.class, ()->{
+                list.last();
+            });
         }
 
         @Test
         @DisplayName("returns element of list with one element")
-        void first_singleElementList_returnsElement() {
+        void last_singleElementList_returnsElement(){
             int expected = 1;
             list.append(expected);
 
@@ -92,7 +94,7 @@ public class DoubleLinkedListTest {
 
         @Test
         @DisplayName("returns last element of list with multiple elements")
-        void first_multipleElementList_returnsFirstElement() {
+        void last_multipleElementList_returnsFirstElement(){
             int expected = 1;
             list.append(2);
             list.append(expected);
@@ -106,13 +108,15 @@ public class DoubleLinkedListTest {
     class DeleteFirst {
         @Test
         @DisplayName("throws DoubleLinkedQueueException when deleting first element of empty list")
-        void first_emptyList_throwsDoubleLinkedQueueException() {
-            assertThrows(DoubleLinkedQueueException.class, () -> list.deleteFirst());
+        void deleteFirst_emptyList_throwsDoubleLinkedQueueException(){
+            assertThrows(DoubleLinkedQueueException.class, ()->{
+                list.deleteFirst();
+            });
         }
 
         @Test
         @DisplayName("deletes element of list with one element")
-        void first_singleElementList_returnsElement() {
+        void deleteFirst_singleElementList_returnsElement(){
             list.append(1);
 
             list.deleteFirst();
@@ -122,7 +126,7 @@ public class DoubleLinkedListTest {
 
         @Test
         @DisplayName("deletes first element of list with multiple elements")
-        void first_multipleElementList_returnsFirstElement() {
+        void deleteFirst_multipleElementList_returnsFirstElement(){
             list.append(1);
             list.append(2);
 
@@ -137,13 +141,15 @@ public class DoubleLinkedListTest {
     class DeleteLast {
         @Test
         @DisplayName("throws DoubleLinkedQueueException when deleting last element of empty list")
-        void first_emptyList_throwsDoubleLinkedQueueException() {
-            assertThrows(DoubleLinkedQueueException.class, () -> list.deleteLast());
+        void deleteLast_emptyList_throwsDoubleLinkedQueueException(){
+            assertThrows(DoubleLinkedQueueException.class, ()->{
+                list.deleteLast();
+            });
         }
 
         @Test
         @DisplayName("deletes element of list with one element")
-        void first_singleElementList_returnsElement() {
+        void deleteLast_singleElementList_returnsElement(){
             list.append(1);
 
             list.deleteLast();
@@ -153,7 +159,7 @@ public class DoubleLinkedListTest {
 
         @Test
         @DisplayName("deletes last element of list with multiple elements")
-        void first_multipleElementList_returnsFirstElement() {
+        void deleteLast_multipleElementList_returnsFirstElement(){
             list.append(1);
             list.append(2);
 
