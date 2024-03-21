@@ -65,9 +65,12 @@ public class ClubDeportivoTest {
             "Ejemplo,Ejemplo,12,2,",
             "Ejemplo,Ejemplo,12,,3",
             "Ejemplo,Ejemplo,,2,3",
+            "Ejemplo,,12,2,3",
+            ",Ejemplo,12,2,3",
     })
     public void anyadirActividad_ArrayDatosNULL_ReturnThrow(String codigo, String actividad, String nplazas, String nmatriculados, String tarifa) {
         String[] datos = {codigo, actividad, nplazas, nmatriculados, tarifa};
+
         assertThrows(ClubException.class, () -> club.anyadirActividad(datos));
     }
 
@@ -79,12 +82,14 @@ public class ClubDeportivoTest {
     })
     public void anyadirActividad_ArrayFormatoInvalidos_ReturnThrow(String codigo, String actividad, String nplazas, String nmatriculados, String tarifa) {
         String[] datos = {codigo, actividad, nplazas, nmatriculados, tarifa};
+
         assertThrows(ClubException.class, () -> club.anyadirActividad(datos));
     }
 
     @Test
     public void anyadirActividad_ArrayDatosMenosElementos_ReturnThrow() {
         String[] datos = {"codigo", "actividad", "12", "13"};
+
         assertThrows(ClubException.class, () -> club.anyadirActividad(datos));
     }
 
