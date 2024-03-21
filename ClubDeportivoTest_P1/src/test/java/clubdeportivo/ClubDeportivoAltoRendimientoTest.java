@@ -157,7 +157,7 @@ public class ClubDeportivoAltoRendimientoTest {
     }
 
     @Test
-    public void ingresos_ConGrupos_ReturnTrue() throws ClubException {
+    public void ingresos_ConGrupos_ReturnExpected() throws ClubException {
         String[] datos = {"Ejemplo", "Ejemplo", "10", "5", "3.2"};
         club.anyadirActividad(datos);
         double expectedRes = 16.24;
@@ -168,7 +168,7 @@ public class ClubDeportivoAltoRendimientoTest {
     }
 
     @Test
-    public void ingresos_SinGrupos_ReturnTrue() {
+    public void ingresos_SinGrupos_Return0() {
         double expectedRes = 0;
 
         double res = club.ingresos();
