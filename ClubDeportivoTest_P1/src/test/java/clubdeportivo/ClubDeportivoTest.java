@@ -157,6 +157,8 @@ public class ClubDeportivoTest {
         int expectedRes = 1;
         Grupo g = new Grupo("Ejemplo", actividad, 12, 10, 3.2);
         club.anyadirActividad(g);
+        g = new Grupo("Ejemplo", "ejemplo1", 12, 10, 3.2);
+        club.anyadirActividad(g);
 
         club.matricular(actividad,npersonas);
 
