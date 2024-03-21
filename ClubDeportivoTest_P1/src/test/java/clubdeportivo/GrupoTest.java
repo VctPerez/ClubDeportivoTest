@@ -49,6 +49,18 @@ public class GrupoTest {
     }
 
     @Test
+    public void GrupoConstructor_NombreNulo_ThrowsClubException() {
+        assertThrows(ClubException.class,() -> new Grupo(null, "test", 5, 2, 2),
+                "Este test no deberia lanzar ninguna excepcion");
+    }
+
+    @Test
+    public void GrupoConstructor_ActividadNula_ThrowsClubException() {
+        assertThrows(ClubException.class,() -> new Grupo("test", null, 5, 2, 2),
+                "Este test no deberia lanzar ninguna excepcion");
+    }
+
+    @Test
     public void GetCodigo_DevuelveCodigo() throws ClubException {
         Grupo g = new Grupo("test", "test", 5, 2, 2);
         String codigo;

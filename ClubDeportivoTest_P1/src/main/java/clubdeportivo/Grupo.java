@@ -8,7 +8,7 @@ public class Grupo {
 	private double tarifa;
 	
 	public Grupo(String codigo, String actividad, int nplazas,  int matriculados, double tarifa) throws ClubException {
-		if (nplazas<=0 || matriculados<0 || tarifa <=0) {
+		if (nplazas<=0 || matriculados<0 || tarifa <=0 || codigo == null || actividad == null) {
 			throw new ClubException("ERROR: los datos numéricos no pueden ser menores o iguales que 0.");
 		}
 		if (matriculados>nplazas) {
