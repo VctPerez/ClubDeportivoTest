@@ -92,6 +92,16 @@ public class ClubDeportivoAltoRendimientoTest {
     }
 
     @Test
+    public void ClubDeportivoAltoRendimientoConTamaño_TamañoNegativo_ReturnNotThrow() {
+        String nombre = "EjemploNombre";
+        int maximo = 10;
+        double incremento = 1.5;
+        int tamano = -20;
+
+        assertThrows(ClubException.class,() -> new ClubDeportivoAltoRendimiento(nombre,tamano,maximo,incremento));
+    }
+
+    @Test
     public void anyadirActividad_DatosValidos_ReturnNotThrow() throws ClubException {
         String nombre = "EjemploNombre";
         String actividad = "EjemploActividad";
