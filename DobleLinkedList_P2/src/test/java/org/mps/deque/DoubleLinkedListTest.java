@@ -11,7 +11,9 @@ import static org.junit.jupiter.api.Assertions.*;
 public class DoubleLinkedListTest {
     DoubleLinkedList<Integer> list;
 
+    //PRIMERA SESION
     @Test
+    @DisplayName("list is initialized")
     void DoubleLinkedListConstructor_initializesList() {
         list = new DoubleLinkedList<>();
         assertEquals(0, list.size());
@@ -241,5 +243,74 @@ public class DoubleLinkedListTest {
         void append_null_throwsDoubleLinkedQueueException() {
             assertThrows(DoubleLinkedQueueException.class, () -> list.append(null));
         }
+    }
+
+    //SEGUNDA SESION
+    @Nested
+    @DisplayName("Get")
+    class Get{
+        @Test
+        @DisplayName("throws IndexOutOfBoundsException when the index is negative")
+        void get_negativeIndex_throwsIndexOutOfBoundsException(){
+            assertThrows(IndexOutOfBoundsException.class, ()-> {
+               list.get(-1);
+            });
+        }
+
+        @Test
+        @DisplayName("throws IndexOutOfBoundsException when the index is greater than the size of the list")
+        void get_indexGreaterThanSize_throwsIndexOutOfBoundsException(){
+            assertThrows(IndexOutOfBoundsException.class, ()-> {
+                list.get(list.size()+1);
+            });
+        }
+
+        @Test
+        @DisplayName("returns the first element of the list when the index is 0")
+        void get_indexZero_returnsFirstElement(){
+            list.append(1);
+            list.append(2);
+            assertEquals(list.first(), list.get(0));
+        }
+
+        @Test
+        @DisplayName("returns the last element of the list when the index is the size minus one of the list")
+        void get_indexSizeMinusOne_returnsLastElement(){
+            list.append(1);
+            list.append(2);
+            assertEquals(list.last(), list.get(list.size() - 1));
+        }
+
+        @Test
+        @DisplayName("returns expected element of the list")
+        void get_validIndex_returnsExpectedElement(){
+            int expected = 111;
+
+            list.append(1);
+            list.append(2);
+            list.append(expected);
+            list.append(3);
+            list.append(4);
+
+            assertEquals(expected, list.get(2));
+        }
+    }
+
+    @Nested
+    @DisplayName("Contains")
+    class Contains{
+
+    }
+
+    @Nested
+    @DisplayName("Remove")
+    class Remove{
+
+    }
+
+    @Nested
+    @DisplayName("Sort")
+    class Sort{
+
     }
 }
