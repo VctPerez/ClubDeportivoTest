@@ -1,6 +1,6 @@
 package clubdeportivo;
 
-public class Grupo {
+public class Grupo { // Hecho Por David Bueno Carmona & Victor Perez Armenta
 	private String codigo;
 	private String actividad;
 	private int nplazas;
@@ -8,7 +8,7 @@ public class Grupo {
 	private double tarifa;
 	
 	public Grupo(String codigo, String actividad, int nplazas,  int matriculados, double tarifa) throws ClubException {
-		if (nplazas<=0 || matriculados<0 || tarifa <=0 || codigo == null || actividad == null) {
+		if (nplazas<=0 || matriculados<0 || tarifa <=0 || codigo == null || actividad == null) { //ADDME: Codigo o actividad posibles nulos
 			throw new ClubException("ERROR: los datos numéricos no pueden ser menores o iguales que 0.");
 		}
 		if (matriculados>nplazas) {

@@ -2,7 +2,7 @@ package clubdeportivo;
 
 import java.util.StringJoiner;
 
-public class ClubDeportivo {
+public class ClubDeportivo { // Hecho Por David Bueno Carmona & Victor Perez Armenta
 	private String nombre;
 	private int ngrupos;
 	private Grupo[] grupos;
@@ -13,7 +13,7 @@ public class ClubDeportivo {
 	}
 
 	public ClubDeportivo(String nombre, int n) throws ClubException {
-		if (n <= 0 || nombre == null) {
+		if (n <= 0 || nombre == null) { //ADDME: No se comprobaban los Nombres nulos
 			throw new ClubException("ERROR: el club no puede crearse con un número de grupos 0 o negativo");
 		}
 		this.nombre = nombre;
@@ -38,7 +38,7 @@ public class ClubDeportivo {
 			double tarifa = Double.parseDouble(datos[4]);
 			Grupo g = new Grupo(datos[0], datos[1], plazas, matriculados, tarifa);
 			anyadirActividad(g);
-		} catch (NumberFormatException | NullPointerException | ArrayIndexOutOfBoundsException e) {
+		} catch (NumberFormatException | NullPointerException | ArrayIndexOutOfBoundsException e) { //ADDME: Posibles excepciones no controladas
 			throw new ClubException("ERROR: formato de número incorrecto");
 		}
 	}
@@ -57,7 +57,7 @@ public class ClubDeportivo {
 	}
 
 	public int plazasLibres(String actividad) throws ClubException {
-		if(actividad != null){
+		if(actividad != null){ //ADDME: Anayido para comprobar las  actividades nulas
 			int p = 0;
 			int i = 0;
 			while (i < ngrupos) {
