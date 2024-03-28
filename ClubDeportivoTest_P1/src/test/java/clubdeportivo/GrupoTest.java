@@ -6,7 +6,7 @@ import org.junit.jupiter.params.provider.CsvSource;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-public class GrupoTest {
+public class GrupoTest { // Hecho Por David Bueno Carmona & Victor Perez Armenta
 
     @Test
     public void GrupoConstructor_nPlazasNegativaOCero_LanzaClubException() {

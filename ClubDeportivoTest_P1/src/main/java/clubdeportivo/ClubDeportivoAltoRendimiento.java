@@ -1,7 +1,7 @@
 package clubdeportivo;
 
 
-public class ClubDeportivoAltoRendimiento extends ClubDeportivo{
+public class ClubDeportivoAltoRendimiento extends ClubDeportivo{ // Hecho Por David Bueno Carmona & Victor Perez Armenta
 	private int maximoPersonasGrupo;
 	private double incremento;
 	
@@ -38,7 +38,7 @@ public class ClubDeportivoAltoRendimiento extends ClubDeportivo{
 			}
 			Grupo g = new Grupo(datos[0], datos[1], plazas, matriculados, tarifa);
 			super.anyadirActividad(g);
-		} catch (NumberFormatException | NullPointerException | ArrayIndexOutOfBoundsException e) {
+		} catch (NumberFormatException | NullPointerException | ArrayIndexOutOfBoundsException e) { //ADDME: Anyadido para comprobar posibles excepciones 
 			throw new ClubException("ERROR: formato de número incorrecto");
 		}
 	}

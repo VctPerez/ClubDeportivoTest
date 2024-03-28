@@ -7,7 +7,7 @@ import org.junit.jupiter.params.provider.CsvSource;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-public class ClubDeportivoAltoRendimientoTest {
+public class ClubDeportivoAltoRendimientoTest { // Hecho Por David Bueno Carmona & Victor Perez Armenta
 
     ClubDeportivoAltoRendimiento club;
     @BeforeEach
