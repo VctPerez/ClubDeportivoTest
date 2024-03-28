@@ -299,7 +299,26 @@ public class DoubleLinkedListTest {
     @Nested
     @DisplayName("Contains")
     class Contains{
+        @Test
+        @DisplayName("returns false when the element is not in the list")
+        void contains_notPresentElement_returnsFalse(){
+            assertFalse(list.contains(1));
+        }
 
+        @Test
+        @DisplayName("returns true when the element is in the list once")
+        void contains_presentElement_returnsTrue(){
+            list.append(1);
+            assertTrue(list.contains(1));
+        }
+        @Test
+        @DisplayName("returns true when the element is in the list multiple times")
+        void contains_multiplePresentElements_returnsTrue(){
+            list.append(1);
+            list.append(1);
+            list.append(2);
+            assertTrue(list.contains(1));
+        }
     }
 
     @Nested
