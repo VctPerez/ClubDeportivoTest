@@ -117,6 +117,17 @@ public class DoubleLinkedListTest {
         }
 
         @Test
+        @DisplayName("deleting first element of list decreases it's size")
+        void deleteFirst_notEmptyList_dereasesListSize() {
+            int expectedSize = list.size()-1;
+            list.append(1);
+
+            list.deleteFirst();
+
+            assertEquals(expectedSize, list.size());
+        }
+        //EL TEST DE ABAJO NO SERIA REDUNDANTE? YA SE COMPRUEBA QUE DECREMENTE EL TAMAÑO Y QUE ELIMINE EL ELEMENTO
+        @Test
         @DisplayName("deletes element of list with one element")
         void deleteFirst_singleElementList_returnsElement(){
             list.append(1);
@@ -147,6 +158,17 @@ public class DoubleLinkedListTest {
             assertThrows(DoubleLinkedQueueException.class, ()->{
                 list.deleteLast();
             });
+        }
+
+        @Test
+        @DisplayName("deleting last element of list decreases it's size")
+        void deleteLast_notEmptyList_dereasesListSize() {
+            int expectedSize = list.size()-1;
+            list.append(1);
+
+            list.deleteLast();
+
+            assertEquals(expectedSize, list.size());
         }
 
         @Test
@@ -184,6 +206,15 @@ public class DoubleLinkedListTest {
         }
 
         @Test
+        @DisplayName("preppending element increases size of list")
+        void preppend_list_increasesListSize() {
+            int expectedSize = list.size()+1;
+            list.prepend(1);
+
+            assertEquals(expectedSize, list.size());
+        }
+
+        @Test
         @DisplayName("preppending element adds it at the start of the list")
         void preppend_nonEmptyList_addsElementAtStartOfList() {
             int expected = 1;
@@ -217,7 +248,16 @@ public class DoubleLinkedListTest {
             int expected = 1;
             list.append(expected);
 
-            assertEquals(expected, list.first());
+            assertEquals(expected, list.first());//en este tipo de metodos hay que comprobar tambien que aumente el tamaño de la lista?
+        }
+
+        @Test
+        @DisplayName("appending element increases size of list")
+        void append_list_increasesListSize() {
+            int expectedSize = list.size()+1;
+            list.append(1);
+
+            assertEquals(expectedSize, list.size());
         }
 
         @Test
@@ -324,7 +364,42 @@ public class DoubleLinkedListTest {
     @Nested
     @DisplayName("Remove")
     class Remove{
+        @Test
+        @DisplayName("doesn't do anything if the element is not present in the list")
+        void remove_notPresentElement_doesNotThrowException(){
+            list.append(2);
+            int expectedSize = list.size();
 
+            assertDoesNotThrow(()->{
+                list.remove(1);
+            });
+            assertEquals(expectedSize, list.size());
+        }
+
+        @Test
+        @DisplayName("removes the element from the list if it's present once")
+        void remove_presentElement_removesElementFromList(){
+            list.append(1);
+            int expectedSize = list.size();
+
+            list.remove(1);
+
+            assertFalse(list.contains(1));
+            assertNotEquals(expectedSize, list.size());
+        }
+
+        @Test
+        @DisplayName("removes the first instance of the element from the list if it's present multiple times")
+        void remove_multiplePresentElement_removesFirstInstaceOfElementFromList(){
+            list.append(1);
+            list.append(1);
+            int expectedSize = list.size();
+
+            list.remove(1);
+
+            assertTrue(list.contains(1));
+            assertNotEquals(expectedSize, list.size());
+        }
     }
 
     @Nested
