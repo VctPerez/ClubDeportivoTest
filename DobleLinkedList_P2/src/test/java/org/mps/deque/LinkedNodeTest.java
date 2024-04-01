@@ -10,6 +10,22 @@ import static org.junit.jupiter.api.Assertions.*;
 public class LinkedNodeTest {
 
     @Nested
+    class Constructor{
+        LinkedNode<Integer> node;
+
+        @Test
+        @DisplayName("Establish links between the three nodes.")
+        public void constructor_ValidNextAndPrevious_EstablishLinks(){
+            LinkedNode<Integer> previous = new LinkedNode<>(0,null, null);
+            LinkedNode<Integer> next = new LinkedNode<>(2,null, null);
+
+            node = new LinkedNode<>(1, previous, next);
+
+            assertEquals(previous.getNext(), node, "El siguiente de previous deberia ser node.");
+            assertEquals(next.getPrevious(), node, "El anterior de next deberia ser node.");
+        }
+    }
+    @Nested
     class GetItem{
         LinkedNode<Integer> node;
         Integer item;
