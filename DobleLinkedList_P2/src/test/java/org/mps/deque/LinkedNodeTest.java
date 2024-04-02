@@ -135,7 +135,7 @@ public class LinkedNodeTest {
         }
         @Test
         @DisplayName("Changes previous to null.")
-        public void setPrevious_whenParameterIsNull_newPreviousIsNull(){
+        public void setPrevious_parameterIsNull_newPreviousIsNull(){
 
             node.setPrevious(null);
 
