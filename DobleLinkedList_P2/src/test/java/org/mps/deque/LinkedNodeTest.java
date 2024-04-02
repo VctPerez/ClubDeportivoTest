@@ -102,7 +102,7 @@ public class LinkedNodeTest {
     class GetPrevious{
         @Test
         @DisplayName("Returns null when previous is null.")
-        public void getPrevious_whenPreviousNull_returnsNull(){
+        public void getPrevious_previousNull_returnsNull(){
             LinkedNode<Integer> node = new LinkedNode<>(1, null, null);
             LinkedNode<Integer> previous;
 
@@ -113,7 +113,7 @@ public class LinkedNodeTest {
 
         @Test
         @DisplayName("Returns previous when it is not null.")
-        public void getPrevious_whenPreviousValid_returnsPrevious(){
+        public void getPrevious_previousValid_returnsPrevious(){
             LinkedNode<Integer> expectedPrevious = new LinkedNode<>(2, null, null);
             LinkedNode<Integer> node = new LinkedNode<>(1, expectedPrevious, null);
             LinkedNode<Integer> actualPrevious;
