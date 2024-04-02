@@ -14,8 +14,20 @@ public class LinkedNodeTest {
         LinkedNode<Integer> node;
 
         @Test
+        @DisplayName("Next and previous are saved correctly.")
+        public void constructor_validNextAndPrevious_nextAndPreviousSaved(){
+            LinkedNode<Integer> previous = new LinkedNode<>(0,null, null);
+            LinkedNode<Integer> next = new LinkedNode<>(2,null, null);
+
+            node = new LinkedNode<>(1, previous, next);
+
+            assertEquals(previous, node.getPrevious(), "El anterior deberia ser el introducido.");
+            assertEquals(next, node.getNext(), "El siguiente deberia ser el introducido.");
+        }
+
+        @Test
         @DisplayName("Establish links between the three nodes.")
-        public void constructor_ValidNextAndPrevious_EstablishLinks(){
+        public void constructor_validNextAndPrevious_establishLinks(){
             LinkedNode<Integer> previous = new LinkedNode<>(0,null, null);
             LinkedNode<Integer> next = new LinkedNode<>(2,null, null);
 
@@ -28,7 +40,6 @@ public class LinkedNodeTest {
     @Nested
     class GetItem{
         LinkedNode<Integer> node;
-        Integer item;
 
         @BeforeEach
         public void initNode(){
@@ -36,8 +47,8 @@ public class LinkedNodeTest {
         }
         @Test
         @DisplayName("Returns null when item is null")
-        public void GetItem_NullItem_ReturnsNull(){
-
+        public void getItem_nullItem_returnsNull(){
+            Integer item;
 
             item = node.getItem();
 
@@ -46,7 +57,7 @@ public class LinkedNodeTest {
 
         @Test
         @DisplayName("Returns the item")
-        public void GetItem_ValidItem_ReturnsItem(){
+        public void getItem_validItem_returnsItem(){
             LinkedNode<Integer> node = new LinkedNode<>(1, null, null);
             Integer item;
 
@@ -69,10 +80,7 @@ public class LinkedNodeTest {
 
         @Test
         @DisplayName("Changes the item to null")
-        public void SetItem_NullParameter_MustBeNull(){
-
-
-
+        public void setItem_nullParameter_mustBeNull(){
             node.setItem(null);
 
             assertNull(node.getItem(), "El item deberia ser null");
@@ -81,15 +89,12 @@ public class LinkedNodeTest {
 
         @Test
         @DisplayName("Changes the item to new item.")
-        public void SetItem_ValidParameter_ItemMustChange(){
-            Integer newItem = 5, initialItem = 1;
-            LinkedNode<Integer> node = new LinkedNode<>(initialItem, null, null);
-
+        public void setItem_validParameter_itemMustChange(){
+            Integer newItem = 5;
 
             node.setItem(newItem);
 
             assertEquals(newItem, node.getItem(), "El item deberia ser el mismo que newItem");
-            assertNotEquals(initialItem, node.getItem(), "El item no debe ser el inicial.");
         }
     }
 
@@ -97,7 +102,7 @@ public class LinkedNodeTest {
     class GetPrevious{
         @Test
         @DisplayName("Returns null when previous is null.")
-        public void GetPrevious_WhenPreviousNull_ReturnsNull(){
+        public void getPrevious_whenPreviousNull_returnsNull(){
             LinkedNode<Integer> node = new LinkedNode<>(1, null, null);
             LinkedNode<Integer> previous;
 
@@ -108,14 +113,14 @@ public class LinkedNodeTest {
 
         @Test
         @DisplayName("Returns previous when it is not null.")
-        public void GetPrevious_WhenPreviousValid_ReturnsPrevious(){
-            LinkedNode<Integer> previous = new LinkedNode<>(2, null, null);
-            LinkedNode<Integer> node = new LinkedNode<>(1, previous, null);
-            LinkedNode<Integer> previousGot;
+        public void getPrevious_whenPreviousValid_returnsPrevious(){
+            LinkedNode<Integer> expectedPrevious = new LinkedNode<>(2, null, null);
+            LinkedNode<Integer> node = new LinkedNode<>(1, expectedPrevious, null);
+            LinkedNode<Integer> actualPrevious;
 
-            previousGot = node.getPrevious();
+            actualPrevious = node.getPrevious();
 
-            assertEquals(previous, previousGot, "El node obtenido en el get deberia ser el mismo");
+            assertEquals(expectedPrevious, actualPrevious, "El node obtenido en el get deberia ser el mismo");
         }
     }
 
@@ -124,13 +129,13 @@ public class LinkedNodeTest {
         LinkedNode<Integer> previous;
         LinkedNode<Integer> node;
         @BeforeEach
-        public void initNodeandPrevious(){
+        public void initNodeAndPrevious(){
            previous = new LinkedNode<>(2, null, null);
            node = new LinkedNode<>(1, previous, null);
         }
         @Test
         @DisplayName("Changes previous to null.")
-        public void SetPrevious_WhenParameterIsNull_NewPreviousIsNull(){
+        public void setPrevious_whenParameterIsNull_newPreviousIsNull(){
 
             node.setPrevious(null);
 
@@ -139,12 +144,11 @@ public class LinkedNodeTest {
 
         @Test
         @DisplayName("Changes previous to new previous.")
-        public void SetPrevious_WhenParameterIsNode_PreviousChange(){
+        public void setPrevious_parameterIsNode_previousChange(){
             LinkedNode<Integer> newPrevious = new LinkedNode<>(5, null, null);
 
             node.setPrevious(newPrevious);
 
-            assertNotEquals(previous, node.getPrevious(), "El previous deberia haber cambiado");
             assertEquals(newPrevious, node.getPrevious(), "El previous debe ser igual a newPrevious");
         }
     }
@@ -161,7 +165,7 @@ public class LinkedNodeTest {
         }
         @Test
         @DisplayName("Returns null when next is null.")
-        public void GetNext_WhenNextIsNull_ReturnsNull(){
+        public void getNext_nextIsNull_returnsNull(){
 
             LinkedNode<Integer> next;
 
@@ -172,7 +176,7 @@ public class LinkedNodeTest {
 
         @Test
         @DisplayName("Returns next when next is not null")
-        public void GetNext_WhenNextValid_ReturnsNext(){
+        public void getNext_nextValid_returnsNext(){
             LinkedNode<Integer> next = new LinkedNode<>(2, null, null);
             LinkedNode<Integer> node = new LinkedNode<>(1, null, next);
             LinkedNode<Integer> nextGot;
@@ -194,7 +198,7 @@ public class LinkedNodeTest {
         }
         @Test
         @DisplayName("Changes next to null.")
-        public void SetNext_WhenNextIsNull_NewNextIsNull(){
+        public void setNext_nextIsNull_newNextIsNull(){
 
             node.setNext(null);
 
@@ -203,13 +207,12 @@ public class LinkedNodeTest {
 
         @Test
         @DisplayName("Changes next to new next.")
-        public void SetNext_WhenNextIsNode_NextChange(){
+        public void setNext_nextIsNode_nextChange(){
             LinkedNode<Integer> newNext = new LinkedNode<>(5, null, null);
 
             node.setNext(newNext);
 
-            assertNotEquals(next, node.getNext(), "El next deberia haber cambiado");
-            assertEquals(newNext, node.getNext(), "El next debe ser igual a newPrevious");
+            assertEquals(newNext, node.getNext(), "El next debe ser igual a newNext");
         }
     }
 
@@ -219,7 +222,7 @@ public class LinkedNodeTest {
         boolean isFirst;
         @Test
         @DisplayName("Returns true when previous is null")
-        public void IsFirstNode_WhenPreviousIsNull_ReturnsTrue(){
+        public void isFirstNode_previousIsNull_returnsTrue(){
             LinkedNode<Integer> node = new LinkedNode<>(1, null, null);
 
             isFirst = node.isFirstNode();
@@ -229,7 +232,7 @@ public class LinkedNodeTest {
 
         @Test
         @DisplayName("Returns false when previous is not null")
-        public void IsFirstNode_WhenPreviousNotNull_ReturnsFalse(){
+        public void isFirstNode_previousNotNull_returnsFalse(){
             LinkedNode<Integer> previous = new LinkedNode<>(0, null, null);
             LinkedNode<Integer> node = new LinkedNode<>(1, previous, null);
 
@@ -245,7 +248,7 @@ public class LinkedNodeTest {
 
        @Test
        @DisplayName("Returns true when next is null.")
-       public void IsLastNode_WhenNextIsNull_ReturnsTrue(){
+       public void isLastNode_nextIsNull_returnsTrue(){
            LinkedNode<Integer> node = new LinkedNode<>(1, null, null);
 
            isLast = node.isLastNode();
@@ -255,7 +258,7 @@ public class LinkedNodeTest {
 
        @Test
        @DisplayName("Returns false when next is not null.")
-       public void IsLastNode_WhenNextIsNotNull_ReturnsFalse(){
+       public void isLastNode_nextIsNotNull_returnsFalse(){
            LinkedNode<Integer> next = new LinkedNode<>(0, null, null);
            LinkedNode<Integer> node = new LinkedNode<>(1, null, next);
 
@@ -268,13 +271,9 @@ public class LinkedNodeTest {
    @Nested
    class IsNotATerminalNode{
         boolean isNotTerminal;
-        @BeforeEach
-        public void initNode(){
-
-        }
        @Test
        @DisplayName("Returns true when next and previous are not null.")
-       public void IsNotATerminalNode_WhenNextAndLastAreNotNull_ReturnsTrue(){
+       public void isNotATerminalNode_nextAndLastAreNotNull_returnsTrue(){
            LinkedNode<Integer> previous = new LinkedNode<>(0, null, null);
            LinkedNode<Integer> next = new LinkedNode<>(2,null, null);
            LinkedNode<Integer> node = new LinkedNode<>(1, previous, next);
@@ -286,7 +285,7 @@ public class LinkedNodeTest {
 
        @Test
        @DisplayName("Returns false when next is null.")
-       public void IsNotATerminalNode_WhenNextIsNull_ReturnsFalse(){
+       public void isNotATerminalNode_nextIsNull_returnsFalse(){
            LinkedNode<Integer> previous = new LinkedNode<>(0, null, null);
            LinkedNode<Integer> node = new LinkedNode<>(1, previous, null);
 
@@ -296,7 +295,7 @@ public class LinkedNodeTest {
        }
        @Test
        @DisplayName("Returns false when previous is null.")
-       public void IsNotATerminalNode_WhenPreviousIsNull_ReturnsFalse(){
+       public void isNotATerminalNode_previousIsNull_returnsFalse(){
            LinkedNode<Integer> next = new LinkedNode<>(2, null, null);
            LinkedNode<Integer> node = new LinkedNode<>(1, null, next);
 
@@ -306,8 +305,8 @@ public class LinkedNodeTest {
        }
 
        @Test
-       @DisplayName("Returns previous and next are null.")
-       public void IsNotATerminalNode_WhenPReviousAndNextAreNull_ReturnsFalse(){
+       @DisplayName("Returns false when previous and next are null.")
+       public void isNotATerminalNode_previousAndNextAreNull_returnsFalse(){
            LinkedNode<Integer> node = new LinkedNode<>(1, null, null);
 
            isNotTerminal = node.isNotATerminalNode();
