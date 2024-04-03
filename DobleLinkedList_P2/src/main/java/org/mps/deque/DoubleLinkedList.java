@@ -1,5 +1,6 @@
 package org.mps.deque;
 
+import java.util.ArrayList;
 import java.util.Comparator;
 
 public class DoubleLinkedList<T> implements DoubleLinkedQueue<T> {
@@ -23,10 +24,7 @@ public class DoubleLinkedList<T> implements DoubleLinkedQueue<T> {
             first = new LinkedNode<>(value,null,null);
             last = first;
         } else {
-            LinkedNode<T> newNode = new LinkedNode<>(value,null,first);
-            LinkedNode<T> temporalNode = first;
-            temporalNode.setPrevious(newNode);
-            first = newNode;
+            first = new LinkedNode<>(value,null,first);
         }
         size++;
     }
@@ -40,10 +38,7 @@ public class DoubleLinkedList<T> implements DoubleLinkedQueue<T> {
             first = new LinkedNode<>(value,null,null);
             last = first;
         } else {
-            LinkedNode<T> newNode = new LinkedNode<>(value,last,null);
-            LinkedNode<T> temporalNode = last;
-            temporalNode.setNext(newNode);
-            last = newNode;
+            last = new LinkedNode<>(value,last,null);
         }
         size++;
     }
@@ -54,6 +49,7 @@ public class DoubleLinkedList<T> implements DoubleLinkedQueue<T> {
             throw new DoubleLinkedQueueException("Empty List");
         } else {
             first = first.getNext();
+            if(first != null) first.setPrevious(null);
             size--;
         }
     }
@@ -64,6 +60,7 @@ public class DoubleLinkedList<T> implements DoubleLinkedQueue<T> {
             throw new DoubleLinkedQueueException("Empty List");
         } else {
             last = last.getPrevious();
+            if(last != null) last.setNext(null);
             size--;
         }
     }
@@ -91,21 +88,78 @@ public class DoubleLinkedList<T> implements DoubleLinkedQueue<T> {
 
     @Override
     public T get(int index) {
-        return null;
+        if (index < 0 || index > this.size() - 1) {
+            throw new IndexOutOfBoundsException();
+        }
+        LinkedNode<T> current = first;
+        while (index > 0) {
+            current = current.getNext();
+            index--;
+        }
+        return current.getItem();
     }
 
     @Override
     public boolean contains(T value) {
-        return false;
+        boolean res = false;
+        int index = 0;
+        LinkedNode<T> current = first;
+        while (!res && index < this.size()) {
+            if(current.getItem() == value){
+                res = true;
+            } else {
+                current = current.getNext();
+                index++;
+            }
+        }
+        return res;
     }
 
     @Override
     public void remove(T value) {
-
+        int index = 0;
+        LinkedNode<T> current = first;
+        boolean found = false;
+        while (index < this.size() && !found) {
+            if(current.getItem() == value)
+            {
+                found = true;
+                if (current == first)
+                {
+                    this.deleteFirst();
+                } else if (current == last)
+                {
+                    this.deleteLast();
+                } else
+                {
+                    current.getPrevious().setNext(current.getNext());
+                    current.getNext().setPrevious(current.getPrevious());
+                }
+            }
+            else
+            {
+                current = current.getNext();
+                index++;
+            }
+        }
     }
 
     @Override
     public void sort(Comparator<? super T> comparator) {
+        ArrayList<T> list = new ArrayList<>();
+        LinkedNode<T> current = first;
+        while (current != null){
+            list.add(current.getItem());
+            current = current.getNext();
+        }
+        DoubleLinkedList newLinkedList = new DoubleLinkedList();
+        list.sort(comparator);
+        for (int i = 0; i < list.size(); i++) {
+            newLinkedList.prepend(list.get(i));
+        }
+        this.first = newLinkedList.first;
+        this.last = newLinkedList.last;
+        this.size = newLinkedList.size();
 
     }
 }

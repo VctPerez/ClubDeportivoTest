@@ -119,8 +119,8 @@ public class DoubleLinkedListTest {
         @Test
         @DisplayName("deleting first element of list decreases it's size")
         void deleteFirst_notEmptyList_dereasesListSize() {
-            int expectedSize = list.size()-1;
             list.append(1);
+            int expectedSize = list.size() - 1;
 
             list.deleteFirst();
 
@@ -163,8 +163,8 @@ public class DoubleLinkedListTest {
         @Test
         @DisplayName("deleting last element of list decreases it's size")
         void deleteLast_notEmptyList_dereasesListSize() {
-            int expectedSize = list.size()-1;
             list.append(1);
+            int expectedSize = list.size() - 1;
 
             list.deleteLast();
 
@@ -300,9 +300,9 @@ public class DoubleLinkedListTest {
         @Test
         @DisplayName("throws IndexOutOfBoundsException when the index is greater than the size of the list")
         void get_indexGreaterThanSize_throwsIndexOutOfBoundsException(){
-            assertThrows(IndexOutOfBoundsException.class, ()-> {
-                list.get(list.size()+1);
-            });
+            assertThrows(IndexOutOfBoundsException.class, ()->
+                list.get(list.size() + 1)
+            );
         }
 
         @Test
