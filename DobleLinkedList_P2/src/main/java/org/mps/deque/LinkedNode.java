@@ -13,9 +13,12 @@ class LinkedNode<T> {
     private LinkedNode<T> next;
 
     LinkedNode(T item, LinkedNode<T> previous, LinkedNode<T> next) {
+
         this.item = item;
         this.previous = previous;
+        if(previous != null) this.previous.setNext(this);
         this.next = next;
+        if(next != null) this.next.setPrevious(this);
     }
 
     T getItem() {
