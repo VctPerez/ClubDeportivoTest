@@ -7,7 +7,7 @@ import org.junit.jupiter.params.provider.CsvSource;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-public class ClubDeportivoTest {
+public class ClubDeportivoTest { // Hecho Por David Bueno Carmona & Victor Perez Armenta
     ClubDeportivo club;
 
     @BeforeEach
@@ -65,9 +65,12 @@ public class ClubDeportivoTest {
             "Ejemplo,Ejemplo,12,2,",
             "Ejemplo,Ejemplo,12,,3",
             "Ejemplo,Ejemplo,,2,3",
+            "Ejemplo,,12,2,3",
+            ",Ejemplo,12,2,3",
     })
     public void anyadirActividad_ArrayDatosNULL_ReturnThrow(String codigo, String actividad, String nplazas, String nmatriculados, String tarifa) {
         String[] datos = {codigo, actividad, nplazas, nmatriculados, tarifa};
+
         assertThrows(ClubException.class, () -> club.anyadirActividad(datos));
     }
 
@@ -79,12 +82,14 @@ public class ClubDeportivoTest {
     })
     public void anyadirActividad_ArrayFormatoInvalidos_ReturnThrow(String codigo, String actividad, String nplazas, String nmatriculados, String tarifa) {
         String[] datos = {codigo, actividad, nplazas, nmatriculados, tarifa};
+
         assertThrows(ClubException.class, () -> club.anyadirActividad(datos));
     }
 
     @Test
     public void anyadirActividad_ArrayDatosMenosElementos_ReturnThrow() {
         String[] datos = {"codigo", "actividad", "12", "13"};
+
         assertThrows(ClubException.class, () -> club.anyadirActividad(datos));
     }
 
@@ -152,6 +157,8 @@ public class ClubDeportivoTest {
         int expectedRes = 1;
         Grupo g = new Grupo("Ejemplo", actividad, 12, 10, 3.2);
         club.anyadirActividad(g);
+        g = new Grupo("Ejemplo", "ejemplo1", 12, 10, 3.2);
+        club.anyadirActividad(g);
 
         club.matricular(actividad,npersonas);
 
@@ -217,7 +224,7 @@ public class ClubDeportivoTest {
     }
 
     @Test
-    public void ingresos_ConGrupos_ReturnTrue() throws ClubException {
+    public void ingresos_ConGrupos_ReturnExpected() throws ClubException {
         Grupo g = new Grupo("Ejemplo", "Ejemplo", 12, 11, 3.2);
         club.anyadirActividad(g);
         double expectedRes = 3.2 * 11;
@@ -228,7 +235,7 @@ public class ClubDeportivoTest {
     }
 
     @Test
-    public void ingresos_SinGrupos_ReturnTrue() {
+    public void ingresos_SinGrupos_Return0() {
         double expectedRes = 0;
 
         double res = club.ingresos();

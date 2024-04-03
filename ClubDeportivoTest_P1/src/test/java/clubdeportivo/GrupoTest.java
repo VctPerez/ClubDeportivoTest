@@ -6,7 +6,7 @@ import org.junit.jupiter.params.provider.CsvSource;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-public class GrupoTest {
+public class GrupoTest { // Hecho Por David Bueno Carmona & Victor Perez Armenta
 
     @Test
     public void GrupoConstructor_nPlazasNegativaOCero_LanzaClubException() {
@@ -45,6 +45,18 @@ public class GrupoTest {
     @Test
     public void GrupoConstructor_ParametrosValidos_NoLanzaClubException() {
         assertDoesNotThrow(() -> new Grupo("test", "test", 5, 2, 2),
+                "Este test no deberia lanzar ninguna excepcion");
+    }
+
+    @Test
+    public void GrupoConstructor_NombreNulo_ThrowsClubException() {
+        assertThrows(ClubException.class,() -> new Grupo(null, "test", 5, 2, 2),
+                "Este test no deberia lanzar ninguna excepcion");
+    }
+
+    @Test
+    public void GrupoConstructor_ActividadNula_ThrowsClubException() {
+        assertThrows(ClubException.class,() -> new Grupo("test", null, 5, 2, 2),
                 "Este test no deberia lanzar ninguna excepcion");
     }
 
