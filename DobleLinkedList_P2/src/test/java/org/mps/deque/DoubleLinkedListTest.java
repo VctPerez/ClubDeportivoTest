@@ -5,6 +5,8 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 
+import java.util.Comparator;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 @DisplayName("A DoubleLinkedList")
@@ -405,6 +407,24 @@ public class DoubleLinkedListTest {
     @Nested
     @DisplayName("Sort")
     class Sort{
+        Comparator<Integer> comparator;
+        @Test
+        @DisplayName("Sorts the list acording to the given comparator")
+        void sort_naturalOrderComparator_sortsTheList(){
+            DoubleLinkedList<Integer> expectedList = new DoubleLinkedList<>();
+            comparator = Comparator.naturalOrder();
+            list.append(2);
+            list.append(3);
+            list.append(1);
+            expectedList.append(1);
+            expectedList.append(2);
+            expectedList.append(3);
 
+            list.sort(comparator);
+
+            assertEquals(expectedList.get(0), list.get(0));
+            assertEquals(expectedList.get(1), list.get(1));
+            assertEquals(expectedList.get(2), list.get(2));
+        }
     }
 }
