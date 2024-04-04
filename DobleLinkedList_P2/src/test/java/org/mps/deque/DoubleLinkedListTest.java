@@ -379,9 +379,37 @@ public class DoubleLinkedListTest {
         }
 
         @Test
-        @DisplayName("removes the element from the list if it's present once")
-        void remove_presentElement_removesElementFromList(){
+        @DisplayName("removes the element from the list if it's present once, at first")
+        void remove_presentElementAtFirst_removesElementFromList(){
             list.append(1);
+            list.append(2);
+            int expectedSize = list.size();
+
+            list.remove(1);
+
+            assertFalse(list.contains(1));
+            assertNotEquals(expectedSize, list.size());
+        }
+
+        @Test
+        @DisplayName("removes the element from the list if it's present once, at last")
+        void remove_presentElementAtLast_removesElementFromList(){
+            list.append(2);
+            list.append(1);
+            int expectedSize = list.size();
+
+            list.remove(1);
+
+            assertFalse(list.contains(1));
+            assertNotEquals(expectedSize, list.size());
+        }
+
+        @Test
+        @DisplayName("removes the element from the list if it's present once, in the middle")
+        void remove_presentElementInTheMiddle_removesElementFromList(){
+            list.append(2);
+            list.append(1);
+            list.append(3);
             int expectedSize = list.size();
 
             list.remove(1);

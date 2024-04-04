@@ -130,6 +130,7 @@ public class DoubleLinkedList<T> implements DoubleLinkedQueue<T> {
                 } else {
                     current.getPrevious().setNext(current.getNext());
                     current.getNext().setPrevious(current.getPrevious());
+                    size--;
                 }
             }
             else {
