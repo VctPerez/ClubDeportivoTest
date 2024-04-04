@@ -142,8 +142,8 @@ public class DoubleLinkedList<T> implements DoubleLinkedQueue<T> {
     @Override
     public void sort(Comparator<? super T> comparator) {
         int size = this.size();
-        boolean swaped = false;
-        while(!swaped){
+        boolean swaped = true;
+        while(swaped){
             LinkedNode<T> current = first;
             swaped = false;
             for(int i = 0; i < size - 1; i++) {
