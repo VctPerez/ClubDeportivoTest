@@ -121,23 +121,18 @@ public class DoubleLinkedList<T> implements DoubleLinkedQueue<T> {
         LinkedNode<T> current = first;
         boolean found = false;
         while (index < this.size() && !found) {
-            if(current.getItem() == value)
-            {
+            if(current.getItem() == value) {
                 found = true;
-                if (current == first)
-                {
+                if (current == first) {
                     this.deleteFirst();
-                } else if (current == last)
-                {
+                } else if (current == last) {
                     this.deleteLast();
-                } else
-                {
+                } else {
                     current.getPrevious().setNext(current.getNext());
                     current.getNext().setPrevious(current.getPrevious());
                 }
             }
-            else
-            {
+            else {
                 current = current.getNext();
                 index++;
             }
@@ -146,20 +141,21 @@ public class DoubleLinkedList<T> implements DoubleLinkedQueue<T> {
 
     @Override
     public void sort(Comparator<? super T> comparator) {
-        ArrayList<T> list = new ArrayList<>();
-        LinkedNode<T> current = first;
-        while (current != null){
-            list.add(current.getItem());
-            current = current.getNext();
+        int size = this.size();
+        boolean swaped = false;
+        while(!swaped){
+            LinkedNode<T> current = first;
+            swaped = false;
+            for(int i = 0; i < size - 1; i++) {
+                if (comparator.compare(this.get(i), this.get(i + 1)) >= 1) {
+                    swaped = true;
+                    T aux = this.get(i);
+                    current.setItem(this.get(i + 1));
+                    current.getNext().setItem(aux);
+                }
+                current = current.getNext();
+            }
         }
-        DoubleLinkedList newLinkedList = new DoubleLinkedList();
-        list.sort(comparator);
-        for (int i = 0; i < list.size(); i++) {
-            newLinkedList.prepend(list.get(i));
-        }
-        this.first = newLinkedList.first;
-        this.last = newLinkedList.last;
-        this.size = newLinkedList.size();
 
     }
 }
