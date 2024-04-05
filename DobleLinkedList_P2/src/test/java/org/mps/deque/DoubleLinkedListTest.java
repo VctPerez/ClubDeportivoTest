@@ -128,7 +128,6 @@ public class DoubleLinkedListTest {
 
             assertEquals(expectedSize, list.size());
         }
-        //EL TEST DE ABAJO NO SERIA REDUNDANTE? YA SE COMPRUEBA QUE DECREMENTE EL TAMAÑO Y QUE ELIMINE EL ELEMENTO
         @Test
         @DisplayName("deletes element of list with one element")
         void deleteFirst_singleElementList_returnsElement(){
@@ -250,7 +249,7 @@ public class DoubleLinkedListTest {
             int expected = 1;
             list.append(expected);
 
-            assertEquals(expected, list.first());//en este tipo de metodos hay que comprobar tambien que aumente el tamaño de la lista?
+            assertEquals(expected, list.first());
         }
 
         @Test
