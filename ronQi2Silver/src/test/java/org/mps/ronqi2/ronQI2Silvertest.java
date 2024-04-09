@@ -5,22 +5,26 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
+
+import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.Mockito.*;
+
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
 import org.mockito.Mock;
 import org.mps.dispositivo.DispositivoSilver;
 
-import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.Mockito.*;
-
 public class ronQI2Silvertest {
-    RonQI2Silver ron;
+
+    @Mock
+    DispositivoSilver mockDispositivo;
+    RonQI2 sujeto;
 
     @BeforeEach
-    void setup(){
-        ron = new RonQI2Silver();
+    void setUp() {
+        mockDispositivo = mock(DispositivoSilver.class);
+        sujeto = new RonQI2Silver();
     }
-    
     /*
      * Analiza con los caminos base qué pruebas se han de realizar para comprobar que al inicializar funciona como debe ser. 
      * El funcionamiento correcto es que si es posible conectar ambos sensores y configurarlos, 
@@ -38,6 +42,89 @@ public class ronQI2Silvertest {
      * Genera las pruebas que estimes oportunas para comprobar su correcto funcionamiento. 
      * Centrate en probar si todo va bien, o si no, y si se llama a los métodos que deben ser llamados.
      */
+    @Nested
+    @DisplayName("Reconectar")
+    class Reconectar {
+        @Test
+        @DisplayName("Reconectar con dispositivo ya conectado")
+        void reconectar_reconexionDisposotivoYaConectado_returnFalse() throws Exception {
+            sujeto.anyadirDispositivo(mockDispositivo);
+            when(mockDispositivo.estaConectado()).thenReturn(true);
+
+            boolean res = sujeto.reconectar();
+
+            assertFalse(res);
+
+        }
+
+        @Test
+        @DisplayName("Reconectar con dispositivo no conectado")
+        void reconectar_reconexionDisposotivoNoConectado_returnTrue() throws Exception {
+            sujeto.anyadirDispositivo(mockDispositivo);
+            when(mockDispositivo.estaConectado()).thenReturn(false);
+            when(mockDispositivo.conectarSensorPresion()).thenReturn(true);
+            when(mockDispositivo.conectarSensorSonido()).thenReturn(true);
+
+            boolean res = sujeto.reconectar();
+
+            assertTrue(res);
+
+        }
+
+        @Test
+        @DisplayName("Reconectar sin dispositivo")
+        void reconectar_reconexionSinDispositivo_returnException() throws Exception {
+            when(mockDispositivo.estaConectado()).thenReturn(false);
+            when(mockDispositivo.conectarSensorPresion()).thenReturn(true);
+            when(mockDispositivo.conectarSensorSonido()).thenReturn(true);
+
+            assertThrows(Exception.class, () -> sujeto.reconectar());
+
+        }
+
+        @Test
+        @DisplayName("Reconectar fallo en ambos sensores")
+        void reconectar_reconexionDispositivoFalloAmbosSensores_returnFalse() throws Exception {
+            sujeto.anyadirDispositivo(mockDispositivo);
+            when(mockDispositivo.estaConectado()).thenReturn(false);
+            when(mockDispositivo.conectarSensorPresion()).thenReturn(false);
+            when(mockDispositivo.conectarSensorSonido()).thenReturn(false);
+
+            boolean res = sujeto.reconectar();
+
+            assertFalse(res);
+
+        }
+
+        @Test
+        @DisplayName("Reconectar fallo en primer sensor")
+        void reconectar_reconexionDispositivoFalloPrimerSensor_returnException() throws Exception {
+            sujeto.anyadirDispositivo(mockDispositivo);
+            when(mockDispositivo.estaConectado()).thenReturn(false);
+            when(mockDispositivo.conectarSensorPresion()).thenReturn(false);
+            when(mockDispositivo.conectarSensorSonido()).thenReturn(true);
+
+            boolean res = sujeto.reconectar();
+
+            assertFalse(res);
+
+        }
+
+        @Test
+        @DisplayName("Reconectar fallo en segundo sensor")
+        void reconectar_reconexionDispositivoFalloSegundoSensor_returnException() throws Exception {
+            sujeto.anyadirDispositivo(mockDispositivo);
+            when(mockDispositivo.estaConectado()).thenReturn(false);
+            when(mockDispositivo.conectarSensorPresion()).thenReturn(true);
+            when(mockDispositivo.conectarSensorSonido()).thenReturn(false);
+
+            boolean res = sujeto.reconectar();
+
+            assertFalse(res);
+
+        }
+
+    }
 
     
     /*
@@ -55,11 +142,11 @@ public class ronQI2Silvertest {
             when(disp.leerSensorPresion()).thenReturn(20f);
             when(disp.leerSensorSonido()).thenReturn(30f);
 
-            ron.anyadirDispositivo(disp);
+            sujeto.anyadirDispositivo(disp);
             for(int i = 0; i < numLecturas; i++){
-                ron.obtenerNuevaLectura();
+                sujeto.obtenerNuevaLectura();
             }
-            assertTrue(ron.evaluarApneaSuenyo());
+            assertTrue(sujeto.evaluarApneaSuenyo());
         }
 
         @ParameterizedTest
@@ -70,11 +157,11 @@ public class ronQI2Silvertest {
             when(disp.leerSensorPresion()).thenReturn(10f);
             when(disp.leerSensorSonido()).thenReturn(10f);
 
-            ron.anyadirDispositivo(disp);
+            sujeto.anyadirDispositivo(disp);
             for(int i = 0; i < numLecturas; i++){
-                ron.obtenerNuevaLectura();
+                sujeto.obtenerNuevaLectura();
             }
-            assertFalse(ron.evaluarApneaSuenyo());
+            assertFalse(sujeto.evaluarApneaSuenyo());
         }
 
         @ParameterizedTest
@@ -85,11 +172,11 @@ public class ronQI2Silvertest {
             when(disp.leerSensorPresion()).thenReturn(10f);
             when(disp.leerSensorSonido()).thenReturn(30f);
 
-            ron.anyadirDispositivo(disp);
+            sujeto.anyadirDispositivo(disp);
             for(int i = 0; i < numLecturas; i++){
-                ron.obtenerNuevaLectura();
+                sujeto.obtenerNuevaLectura();
             }
-            assertFalse(ron.evaluarApneaSuenyo());
+            assertFalse(sujeto.evaluarApneaSuenyo());
         }
 
         @ParameterizedTest
@@ -100,11 +187,11 @@ public class ronQI2Silvertest {
             when(disp.leerSensorPresion()).thenReturn(20f);
             when(disp.leerSensorSonido()).thenReturn(10f);
 
-            ron.anyadirDispositivo(disp);
+            sujeto.anyadirDispositivo(disp);
             for(int i = 0; i < numLecturas; i++){
-                ron.obtenerNuevaLectura();
+                sujeto.obtenerNuevaLectura();
             }
-            assertFalse(ron.evaluarApneaSuenyo());
+            assertFalse(sujeto.evaluarApneaSuenyo());
         }
 
         @Test
@@ -114,9 +201,9 @@ public class ronQI2Silvertest {
             when(disp.leerSensorPresion()).thenReturn(20f);
             when(disp.leerSensorSonido()).thenReturn(30f);
 
-            ron.anyadirDispositivo(disp);
+            sujeto.anyadirDispositivo(disp);
 
-            assertFalse(ron.evaluarApneaSuenyo());
+            assertFalse(sujeto.evaluarApneaSuenyo());
         }
     }
 

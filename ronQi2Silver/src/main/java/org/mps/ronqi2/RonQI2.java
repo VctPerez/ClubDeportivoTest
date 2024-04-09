@@ -31,7 +31,8 @@ public abstract class RonQI2 {
     /* 
      * Reconecta el dispositivo cuando esta desconectado.
     */
-    public boolean reconectar(){
+    public boolean reconectar() throws Exception {
+        if(disp == null) throw new Exception("Sin dispositivos conectados"); // DBC: ANADIDO NO SE COMPRUEBA SI TIENE DISPOSITIVO
         boolean result = false;
         if (!disp.estaConectado()){
             result = disp.conectarSensorPresion() && disp.conectarSensorSonido();
