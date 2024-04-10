@@ -41,6 +41,7 @@ public class RonQI2SilverTest {
         }
 
         @Test
+        @DisplayName("Devuelve false si el sensor de presion no conecta.")
         public void inicializar_sensorPresionNoConecta_returnFalse(){
 
             DispositivoSilver dispositivoSilver = mock(DispositivoSilver.class);
@@ -54,6 +55,7 @@ public class RonQI2SilverTest {
         }
 
         @Test
+        @DisplayName("Devuelve false si el sensor de sonido no conecta.")
         public void inicializar_sensorSonidoNoConecta_returnFalse(){
             DispositivoSilver dispositivoSilver = mock(DispositivoSilver.class);
             when(dispositivoSilver.conectarSensorPresion()).thenReturn(true);
@@ -66,6 +68,7 @@ public class RonQI2SilverTest {
         }
 
         @Test
+        @DisplayName("Devuelve false si el sensor de presion no se configura.")
         public void inicializar_configurarSensorPresionEsFalso_returnFalse(){
             DispositivoSilver dispositivoSilver = mock(DispositivoSilver.class);
             when(dispositivoSilver.conectarSensorPresion()).thenReturn(true);
@@ -79,6 +82,7 @@ public class RonQI2SilverTest {
         }
 
         @Test
+        @DisplayName("Devuelve false si el sensor sonido no se configura.")
         public void inicializar_configurarSensorSonidoEsFalso_returnFalse(){
             DispositivoSilver dispositivoSilver = mock(DispositivoSilver.class);
             when(dispositivoSilver.conectarSensorPresion()).thenReturn(true);
@@ -93,6 +97,7 @@ public class RonQI2SilverTest {
         }
 
         @Test
+        @DisplayName("Devuelve true si los sensores se conectan y se configuran.")
         public void inicializar_conectarYConfigurarSonVerdadero_returnTrue(){
             DispositivoSilver dispositivoSilver = mock(DispositivoSilver.class);
             when(dispositivoSilver.conectarSensorPresion()).thenReturn(true);
