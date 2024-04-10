@@ -22,7 +22,7 @@ public abstract class RonQI2 {
     /* 
      * Lee y almacena las lecturas de presion y sonido del dispositivo.
     */
-    public abstract void obtenerNuevaLectura();
+    public abstract void obtenerNuevaLectura() throws Exception;
 
     public void anyadirDispositivo(Dispositivo d) throws Exception {
         if(d == null) throw new Exception("Dispositivo nulo"); //DBC: ANADIDO NO SE COMPRUEBA SI ES UN DISPOSITIVO NULO
