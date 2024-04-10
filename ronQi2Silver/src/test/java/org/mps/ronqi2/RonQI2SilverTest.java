@@ -109,6 +109,8 @@ public class RonQI2SilverTest {
             boolean inicializado = ronQI2Silver.inicializar();
 
             assertTrue(inicializado, "RonQi2Silver debería haber sido inicializado");
+            verify(dispositivoSilver).configurarSensorSonido();
+            verify(dispositivoSilver).configurarSensorPresion();
         }
 
     }
