@@ -155,7 +155,7 @@ public class RonQI2SilverTest {
 
         @Test
         @DisplayName("Reconectar sin dispositivo")
-        void reconectar_reconexionSinDispositivo_returnException() throws Exception {
+        void reconectar_reconexionSinDispositivo_throwsException() throws Exception {
             when(mockDispositivo.estaConectado()).thenReturn(false);
             when(mockDispositivo.conectarSensorPresion()).thenReturn(true);
             when(mockDispositivo.conectarSensorSonido()).thenReturn(true);
@@ -180,7 +180,7 @@ public class RonQI2SilverTest {
 
         @Test
         @DisplayName("Reconectar fallo en primer sensor")
-        void reconectar_reconexionDispositivoFalloPrimerSensor_returnException() throws Exception {
+        void reconectar_reconexionDispositivoFalloPrimerSensor_throwsException() throws Exception {
             sujeto.anyadirDispositivo(mockDispositivo);
             when(mockDispositivo.estaConectado()).thenReturn(false);
             when(mockDispositivo.conectarSensorPresion()).thenReturn(false);
@@ -194,7 +194,7 @@ public class RonQI2SilverTest {
 
         @Test
         @DisplayName("Reconectar fallo en segundo sensor")
-        void reconectar_reconexionDispositivoFalloSegundoSensor_returnException() throws Exception {
+        void reconectar_reconexionDispositivoFalloSegundoSensor_throwsException() throws Exception {
             sujeto.anyadirDispositivo(mockDispositivo);
             when(mockDispositivo.estaConectado()).thenReturn(false);
             when(mockDispositivo.conectarSensorPresion()).thenReturn(true);
@@ -288,8 +288,6 @@ public class RonQI2SilverTest {
             assertFalse(sujeto.evaluarApneaSuenyo());
         }
     }
-
-
 
      /* Realiza un primer test para ver que funciona bien independientemente del número de lecturas.
      * Usa el ParameterizedTest para realizar un número de lecturas previas a calcular si hay apnea o no (por ejemplo 4, 5 y 10 lecturas).
