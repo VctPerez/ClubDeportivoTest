@@ -24,7 +24,8 @@ public abstract class RonQI2 {
     */
     public abstract void obtenerNuevaLectura();
 
-    public void anyadirDispositivo(Dispositivo d){
+    public void anyadirDispositivo(Dispositivo d) throws Exception {
+        if(d == null) throw new Exception("Dispositivo nulo"); //DBC: ANADIDO NO SE COMPRUEBA SI ES UN DISPOSITIVO NULO
         disp = d;
     }
 
@@ -48,7 +49,8 @@ public abstract class RonQI2 {
     /* 
      * Lee y almacena las lecturas de presion y sonido del dispositivo.
     */
-    public boolean estaConectado(){
+    public boolean estaConectado() throws Exception {
+        if(disp == null) throw new Exception("Sin dispositivos conectados"); //DBC: ANADIDO NO SE COMPRUEBA SI TIENE DISPOSITIVO
         return disp.estaConectado();
     }    
 }

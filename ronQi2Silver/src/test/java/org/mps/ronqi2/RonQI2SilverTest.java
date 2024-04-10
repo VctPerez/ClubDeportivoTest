@@ -42,7 +42,7 @@ public class RonQI2SilverTest {
 
         @Test
         @DisplayName("Devuelve false si el sensor de presion no conecta.")
-        public void inicializar_sensorPresionNoConecta_returnFalse(){
+        public void inicializar_sensorPresionNoConecta_returnFalse() throws Exception {
 
             DispositivoSilver dispositivoSilver = mock(DispositivoSilver.class);
             when(dispositivoSilver.conectarSensorPresion()).thenReturn(false);
@@ -56,7 +56,7 @@ public class RonQI2SilverTest {
 
         @Test
         @DisplayName("Devuelve false si el sensor de sonido no conecta.")
-        public void inicializar_sensorSonidoNoConecta_returnFalse(){
+        public void inicializar_sensorSonidoNoConecta_returnFalse() throws Exception {
             DispositivoSilver dispositivoSilver = mock(DispositivoSilver.class);
             when(dispositivoSilver.conectarSensorPresion()).thenReturn(true);
             when(dispositivoSilver.conectarSensorSonido()).thenReturn(false);
@@ -69,7 +69,7 @@ public class RonQI2SilverTest {
 
         @Test
         @DisplayName("Devuelve false si el sensor de presion no se configura.")
-        public void inicializar_configurarSensorPresionEsFalso_returnFalse(){
+        public void inicializar_configurarSensorPresionEsFalso_returnFalse() throws Exception {
             DispositivoSilver dispositivoSilver = mock(DispositivoSilver.class);
             when(dispositivoSilver.conectarSensorPresion()).thenReturn(true);
             when(dispositivoSilver.conectarSensorSonido()).thenReturn(true);
@@ -83,7 +83,7 @@ public class RonQI2SilverTest {
 
         @Test
         @DisplayName("Devuelve false si el sensor sonido no se configura.")
-        public void inicializar_configurarSensorSonidoEsFalso_returnFalse(){
+        public void inicializar_configurarSensorSonidoEsFalso_returnFalse() throws Exception {
             DispositivoSilver dispositivoSilver = mock(DispositivoSilver.class);
             when(dispositivoSilver.conectarSensorPresion()).thenReturn(true);
             when(dispositivoSilver.conectarSensorSonido()).thenReturn(true);
@@ -98,7 +98,7 @@ public class RonQI2SilverTest {
 
         @Test
         @DisplayName("Devuelve true si los sensores se conectan y se configuran.")
-        public void inicializar_conectarYConfigurarSonVerdadero_returnTrue(){
+        public void inicializar_conectarYConfigurarSonVerdadero_returnTrue() throws Exception {
             DispositivoSilver dispositivoSilver = mock(DispositivoSilver.class);
             when(dispositivoSilver.conectarSensorPresion()).thenReturn(true);
             when(dispositivoSilver.conectarSensorSonido()).thenReturn(true);
@@ -221,7 +221,7 @@ public class RonQI2SilverTest {
         @ParameterizedTest
         @CsvSource({"1", "5", "6"})
         @DisplayName("Devuelve true si el promedio de las últimas 5 lecturas de ambos sensores superan los límites establecidos")
-        void evaluarApneaSuenyo_mediaLecturasSuperanLimites_devuelveTrue(int numLecturas){
+        void evaluarApneaSuenyo_mediaLecturasSuperanLimites_devuelveTrue(int numLecturas) throws Exception {
             DispositivoSilver disp = mock(DispositivoSilver.class);
             when(disp.leerSensorPresion()).thenReturn(20f);
             when(disp.leerSensorSonido()).thenReturn(30f);
@@ -236,7 +236,7 @@ public class RonQI2SilverTest {
         @ParameterizedTest
         @CsvSource({"1", "5", "6"})
         @DisplayName("Devuelve false si el promedio de las últimas 5 lecturas de ambos sensores no superan los límites establecidos")
-        void evaluarApneaSuenyo_mediaLecturasNoSuperanLimites_devuelveFalse(int numLecturas){
+        void evaluarApneaSuenyo_mediaLecturasNoSuperanLimites_devuelveFalse(int numLecturas) throws Exception {
             DispositivoSilver disp = mock(DispositivoSilver.class);
             when(disp.leerSensorPresion()).thenReturn(10f);
             when(disp.leerSensorSonido()).thenReturn(10f);
@@ -251,7 +251,7 @@ public class RonQI2SilverTest {
         @ParameterizedTest
         @CsvSource({"1", "5", "6"})
         @DisplayName("Devuelve false si el promedio de las últimas 5 lecturas de presion no superan los límites establecidos")
-        void evaluarApneaSuenyo_mediaLecturasPresionNoSuperanLimites_devuelveFalse(int numLecturas){
+        void evaluarApneaSuenyo_mediaLecturasPresionNoSuperanLimites_devuelveFalse(int numLecturas) throws Exception {
             DispositivoSilver disp = mock(DispositivoSilver.class);
             when(disp.leerSensorPresion()).thenReturn(10f);
             when(disp.leerSensorSonido()).thenReturn(30f);
@@ -266,7 +266,7 @@ public class RonQI2SilverTest {
         @ParameterizedTest
         @CsvSource({"1", "5", "6"})
         @DisplayName("Devuelve false si el promedio de las últimas 5 lecturas de sonido no superan los límites establecidos")
-        void evaluarApneaSuenyo_mediaLecturasSonidoNoSuperanLimites_devuelveFalse(int numLecturas){
+        void evaluarApneaSuenyo_mediaLecturasSonidoNoSuperanLimites_devuelveFalse(int numLecturas) throws Exception {
             DispositivoSilver disp = mock(DispositivoSilver.class);
             when(disp.leerSensorPresion()).thenReturn(20f);
             when(disp.leerSensorSonido()).thenReturn(10f);
@@ -280,7 +280,7 @@ public class RonQI2SilverTest {
 
         @Test
         @DisplayName("Devuelve false si no se han realizado lecturas")
-        void evaluarApneaSuenyo_ceroLecturas_devuelveFalse(){
+        void evaluarApneaSuenyo_ceroLecturas_devuelveFalse() throws Exception {
             DispositivoSilver disp = mock(DispositivoSilver.class);
             when(disp.leerSensorPresion()).thenReturn(20f);
             when(disp.leerSensorSonido()).thenReturn(30f);
@@ -295,4 +295,58 @@ public class RonQI2SilverTest {
      * Usa el ParameterizedTest para realizar un número de lecturas previas a calcular si hay apnea o no (por ejemplo 4, 5 y 10 lecturas).
      * https://junit.org/junit5/docs/current/user-guide/index.html#writing-tests-parameterized-tests
      */
+
+    @Nested
+    class anyadirDispositivo{
+        @Test
+        @DisplayName("Añadir dispositivo existente")
+        void anyadirDispositivo_dispositivoExistente_sinException(){
+
+            assertDoesNotThrow(() -> sujeto.anyadirDispositivo(mockDispositivo));
+
+        }
+
+        @Test
+        @DisplayName("Añadir dispositivo nulo")
+        void anyadirDispositivo_dispositivoNulo_Exception(){
+
+            assertThrows(Exception.class, () -> sujeto.anyadirDispositivo(null));
+
+        }
+    }
+
+    @Nested
+    class estaConectado{
+        @Test
+        @DisplayName("Comprobar dispositivo existente conectado")
+        void estaConectado_dispositivoExistenteConectado_returnTrue() throws Exception{
+            sujeto.anyadirDispositivo(mockDispositivo);
+            when(mockDispositivo.estaConectado()).thenReturn(true);
+
+            boolean res = sujeto.estaConectado();
+
+            assertTrue(res);
+
+        }
+
+        @Test
+        @DisplayName("Comprobar dispositivo existente desconectado")
+        void estaConectado_dispositivoExistenteDesconectado_returnFalse() throws Exception{
+            sujeto.anyadirDispositivo(mockDispositivo);
+            when(mockDispositivo.estaConectado()).thenReturn(false);
+
+            boolean res = sujeto.estaConectado();
+
+            assertFalse(res);
+
+        }
+
+        @Test
+        @DisplayName("Comprobar dispositivo nulo")
+        void estaConectado_dispositivoNulo_returnException() {
+
+            assertThrows(Exception.class, () -> sujeto.estaConectado());
+
+        }
+    }
 }
