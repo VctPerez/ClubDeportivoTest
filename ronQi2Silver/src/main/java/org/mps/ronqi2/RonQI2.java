@@ -9,10 +9,10 @@ public abstract class RonQI2 {
      * Inicializa el sistema ronQI2 configurando los dos sensores del dispositivo conectado.
     */
     public boolean inicializar() throws Exception {
+        boolean result = false;
         if(disp==null){
             throw new Exception("No hay dispositivo");//JABR: : ANADIDO NO SE COMPROBABA QUE EL SENSOR FUERA NULO
         }
-        boolean result = false;
         if (disp.conectarSensorPresion()){
             boolean confPresion = disp.configurarSensorPresion();
             if (disp.conectarSensorSonido()){
