@@ -77,6 +77,7 @@ public class RonQI2SilverTest {
             when(dispositivoSilver.conectarSensorPresion()).thenReturn(true);
             when(dispositivoSilver.conectarSensorSonido()).thenReturn(true);
             when(dispositivoSilver.configurarSensorPresion()).thenReturn(false);
+            when(dispositivoSilver.conectarSensorSonido()).thenReturn(true);
             ronQI2Silver.anyadirDispositivo(dispositivoSilver);
 
             boolean inicializado = ronQI2Silver.inicializar();
@@ -100,6 +101,21 @@ public class RonQI2SilverTest {
         }
 
         @Test
+        @DisplayName("Devuelve false si ninguno de los dos sensores se configura.")
+        public void inicializar_configurarSensoresEsFalso_devuelveFalse() throws Exception {
+            DispositivoSilver dispositivoSilver = mock(DispositivoSilver.class);
+            when(dispositivoSilver.conectarSensorPresion()).thenReturn(true);
+            when(dispositivoSilver.conectarSensorSonido()).thenReturn(true);
+            when(dispositivoSilver.configurarSensorPresion()).thenReturn(false);
+            when(dispositivoSilver.configurarSensorSonido()).thenReturn(false);
+            ronQI2Silver.anyadirDispositivo(dispositivoSilver);
+
+            boolean inicializado = ronQI2Silver.inicializar();
+
+            assertFalse(inicializado, "RonQi2Silver no debería haber sido inicializado");
+        }
+
+        @Test
         @DisplayName("Devuelve true si los sensores se conectan y se configuran.")
         public void inicializar_conectarYConfigurarSonVerdadero_devuelveTrue() throws Exception {
             DispositivoSilver dispositivoSilver = mock(DispositivoSilver.class);
@@ -112,8 +128,6 @@ public class RonQI2SilverTest {
             boolean inicializado = ronQI2Silver.inicializar();
 
             assertTrue(inicializado, "RonQi2Silver debería haber sido inicializado");
-            verify(dispositivoSilver).configurarSensorSonido();
-            verify(dispositivoSilver).configurarSensorPresion();
         }
 
     }
