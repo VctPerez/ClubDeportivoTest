@@ -36,6 +36,14 @@ public class RonQI2SilverTest {
     class Inicializar{
 
         @Test
+        @DisplayName("Lanza excepción no hay sensor.")
+        public void inicializar_sensorNulo_lanzaException(){
+            assertThrows(Exception.class, ()->{
+                ronQI2Silver.inicializar();
+            });
+        }
+
+        @Test
         @DisplayName("Devuelve false si el sensor de presion no conecta.")
         public void inicializar_sensorPresionNoConecta_devuelveFalse() throws Exception {
 
@@ -125,7 +133,7 @@ public class RonQI2SilverTest {
     @DisplayName("Reconectar")
     class Reconectar {
         @Test
-        @DisplayName("Reconectar con dispositivo ya conectado")
+        @DisplayName("Devuelve falso si el dispositivo ya está conectado.")
         void reconectar_reconexionDisposotivoYaConectado_devuelveFalse() throws Exception {
             ronQI2Silver.anyadirDispositivo(mockDispositivo);
             when(mockDispositivo.estaConectado()).thenReturn(true);
@@ -137,7 +145,7 @@ public class RonQI2SilverTest {
         }
 
         @Test
-        @DisplayName("Reconectar con dispositivo no conectado")
+        @DisplayName("Devuelve verdadero si el dispositivo no está conectado.")
         void reconectar_reconexionDisposotivoNoConectado_devuelveTrue() throws Exception {
             ronQI2Silver.anyadirDispositivo(mockDispositivo);
             when(mockDispositivo.estaConectado()).thenReturn(false);
@@ -150,7 +158,7 @@ public class RonQI2SilverTest {
         }
 
         @Test
-        @DisplayName("Reconectar sin dispositivo")
+        @DisplayName("Lanza excepción si no hay dispositivo.")
         void reconectar_reconexionSinDispositivo_lanzaException() throws Exception {
             when(mockDispositivo.estaConectado()).thenReturn(false);
             when(mockDispositivo.conectarSensorPresion()).thenReturn(true);
@@ -161,7 +169,7 @@ public class RonQI2SilverTest {
         }
 
         @Test
-        @DisplayName("Reconectar fallo en ambos sensores")
+        @DisplayName("Devuelve falso si fallan ambos sensores.")
         void reconectar_reconexionDispositivoFalloAmbosSensores_devuelveFalse() throws Exception {
             ronQI2Silver.anyadirDispositivo(mockDispositivo);
             when(mockDispositivo.estaConectado()).thenReturn(false);
@@ -175,8 +183,8 @@ public class RonQI2SilverTest {
         }
 
         @Test
-        @DisplayName("Reconectar fallo en primer sensor")
-        void reconectar_reconexionDispositivoFalloPrimerSensor_lanzaException() throws Exception {
+        @DisplayName("Devuelve falso si falla el sensor de presion.")
+        void reconectar_reconexionDispositivoFalloSensorPresion_lanzaException() throws Exception {
             ronQI2Silver.anyadirDispositivo(mockDispositivo);
             when(mockDispositivo.estaConectado()).thenReturn(false);
             when(mockDispositivo.conectarSensorPresion()).thenReturn(false);
@@ -188,8 +196,8 @@ public class RonQI2SilverTest {
         }
 
         @Test
-        @DisplayName("Reconectar fallo en segundo sensor")
-        void reconectar_reconexionDispositivoFalloSegundoSensor_lanzaException() throws Exception {
+        @DisplayName("Devuelve falso si falla el sensor de sonido.")
+        void reconectar_reconexionDispositivoFalloSensorSonido_lanzaException() throws Exception {
             ronQI2Silver.anyadirDispositivo(mockDispositivo);
             when(mockDispositivo.estaConectado()).thenReturn(false);
             when(mockDispositivo.conectarSensorPresion()).thenReturn(true);
@@ -347,26 +355,22 @@ public class RonQI2SilverTest {
     @Nested
     class anyadirDispositivo{
         @Test
-        @DisplayName("Añadir dispositivo existente")
+        @DisplayName("Anyade el dispositivo si no es nulo.")
         void anyadirDispositivo_dispositivoNoNulo_noLanzaException(){
-
             assertDoesNotThrow(() -> ronQI2Silver.anyadirDispositivo(mockDispositivo));
-
         }
 
         @Test
-        @DisplayName("Añadir dispositivo nulo")
+        @DisplayName("Lanza excepción si el dispositivo es nulo.")
         void anyadirDispositivo_dispositivoNulo_lanzaException(){
-
             assertThrows(Exception.class, () -> ronQI2Silver.anyadirDispositivo(null));
-
         }
     }
 
     @Nested
     class estaConectado{
         @Test
-        @DisplayName("Comprobar dispositivo existente conectado")
+        @DisplayName("Devuelve verdadero si el dispositivo está conectado.")
         void estaConectado_dispositivoExistenteConectado_devuelveTrue() throws Exception{
             ronQI2Silver.anyadirDispositivo(mockDispositivo);
             when(mockDispositivo.estaConectado()).thenReturn(true);
@@ -378,7 +382,7 @@ public class RonQI2SilverTest {
         }
 
         @Test
-        @DisplayName("Comprobar dispositivo existente desconectado")
+        @DisplayName("Devuelve falso si el dispositivo no está conectado.")
         void estaConectado_dispositivoExistenteDesconectado_devuelveFalse() throws Exception{
             ronQI2Silver.anyadirDispositivo(mockDispositivo);
             when(mockDispositivo.estaConectado()).thenReturn(false);
@@ -390,7 +394,7 @@ public class RonQI2SilverTest {
         }
 
         @Test
-        @DisplayName("Comprobar dispositivo nulo")
+        @DisplayName("Lanza excepción si no hay dispositivo.")
         void estaConectado_dispositivoNulo_lanzaException() {
 
             assertThrows(Exception.class, () -> ronQI2Silver.estaConectado());
