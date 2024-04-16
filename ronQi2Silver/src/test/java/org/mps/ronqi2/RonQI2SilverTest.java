@@ -66,8 +66,8 @@ public class RonQI2SilverTest {
             DispositivoSilver dispositivoSilver = mock(DispositivoSilver.class);
             when(dispositivoSilver.conectarSensorPresion()).thenReturn(true);
             when(dispositivoSilver.conectarSensorSonido()).thenReturn(false);
-            when(dispositivoSilver.conectarSensorPresion()).thenReturn(false);
-            when(dispositivoSilver.conectarSensorSonido()).thenReturn(false);
+            when(dispositivoSilver.configurarSensorPresion()).thenReturn(false);
+            when(dispositivoSilver.configurarSensorSonido()).thenReturn(false);
             ronQI2Silver.anyadirDispositivo(dispositivoSilver);
 
             boolean inicializado = ronQI2Silver.inicializar();
@@ -80,7 +80,7 @@ public class RonQI2SilverTest {
         public void inicializar_conectarSensoresEsFalso_devuelveFalse() throws Exception {
             DispositivoSilver dispositivoSilver = mock(DispositivoSilver.class);
             when(dispositivoSilver.conectarSensorPresion()).thenReturn(false);
-            when(dispositivoSilver.conectarSensorSonido()).thenReturn(false);
+            when(dispositivoSilver.conectarSensorSonido()).thenReturn(true);
             when(dispositivoSilver.configurarSensorPresion()).thenReturn(true);
             when(dispositivoSilver.configurarSensorSonido()).thenReturn(false);
             ronQI2Silver.anyadirDispositivo(dispositivoSilver);
@@ -97,7 +97,7 @@ public class RonQI2SilverTest {
             when(dispositivoSilver.conectarSensorPresion()).thenReturn(true);
             when(dispositivoSilver.conectarSensorSonido()).thenReturn(true);
             when(dispositivoSilver.configurarSensorPresion()).thenReturn(false);
-            when(dispositivoSilver.conectarSensorSonido()).thenReturn(true);
+            when(dispositivoSilver.configurarSensorSonido()).thenReturn(true);
             ronQI2Silver.anyadirDispositivo(dispositivoSilver);
 
             boolean inicializado = ronQI2Silver.inicializar();
