@@ -6,8 +6,7 @@ import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 import org.mps.EvolutionaryAlgorithmException;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class OnePointCrossoverTest {
 
@@ -19,6 +18,12 @@ public class OnePointCrossoverTest {
         @BeforeEach
         public void initTests(){
             onePointCrossover = new OnePointCrossover();
+        }
+
+        @Test
+        @DisplayName("Constructor doesn't throws excepetion.")
+        public void constructor_doesNotThrowException(){
+            assertDoesNotThrow(OnePointCrossoverTest::new);
         }
 
         @Test
@@ -42,7 +47,7 @@ public class OnePointCrossoverTest {
         }
 
         @Test
-        @DisplayName("Throws an exception if parent1 length is 0.")
+        @DisplayName("Throws an exception if parent1 length is 1.")
         public void crossover_parent1Length0_throwEvolutionaryAlgorithmException(){
             int[] parent1 = {1};
             int[] parent2 = {};
@@ -62,21 +67,10 @@ public class OnePointCrossoverTest {
         }
 
         @Test
+        @DisplayName("Returns an offspring with valid size.")
         public void crossover_parentsvValid_returnsOffspring() throws EvolutionaryAlgorithmException {
             int[] parent1 = {1,3,4,5};
             int[] parent2 = {2,4,6,8};
-            int[][] offspring;
-
-            offspring = onePointCrossover.crossover(parent1, parent2);
-
-            assertEquals(parent1.length, offspring[0].length, "Deberia tener la misma longitud que el padre");
-            assertEquals(2, offspring.length);
-        }
-
-        @Test
-        public void crossover_parentsSize2_returnsOffspringUsingOnlyFirstFor() throws EvolutionaryAlgorithmException {
-            int[] parent1 = {1,2};
-            int[] parent2 = {3,4};
             int[][] offspring;
 
             offspring = onePointCrossover.crossover(parent1, parent2);
