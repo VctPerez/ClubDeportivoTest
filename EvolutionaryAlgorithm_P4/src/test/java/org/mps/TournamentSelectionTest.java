@@ -63,7 +63,7 @@ public class TournamentSelectionTest {
 
         int[] selected = tournamentSelection.select(validArray);
 
-        assertArrayEquals(selected, );
+        assertEquals(selected.length,validArray.length);
     }
 
 
