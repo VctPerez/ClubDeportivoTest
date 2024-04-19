@@ -13,25 +13,25 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
   </component>
-  <component name="ProjectColorInfo"><![CDATA[{
-  "associatedIndex": 8
-}]]></component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 8
+}</component>
   <component name="ProjectId" id="2ed8BUStRiEqf4SyBe2OATHagGV" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "git-widget-placeholder": "main",
-    "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "C:/Users/jabr3/Documents/GitHub/TestsPracticas/TestsPracticas/ronQi2Silver",
-    "nodejs_package_manager_path": "npm",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/jabr3/Documents/GitHub/TestsPracticas/TestsPracticas/EvolutionaryAlgorithm_P4&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
@@ -48,10 +48,35 @@
       <option name="presentableId" value="Default" />
       <updated>1712222958727</updated>
       <workItem from="1712222959730" duration="107000" />
+      <workItem from="1713259447365" duration="20000" />
     </task>
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
+  </component>
+  <component name="com.intellij.coverage.CoverageDataManagerImpl">
+    <SUITE FILE_PATH="coverage/ronQi2Silver$RonQI2SilverTest.ic" NAME="RonQI2SilverTest Coverage Results" MODIFIED="1712951689117" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false">
+      <FILTER>org.mps.ronqi2.*</FILTER>
+    </SUITE>
+    <SUITE FILE_PATH="coverage/ronQi2Silver$ronQI2Silvertest_evaluarApneaSuenyo.ic" NAME="ronQI2Silvertest$evaluarApneaSuenyo Coverage Results" MODIFIED="1712478089796" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false">
+      <FILTER>org.mps.ronqi2.*</FILTER>
+    </SUITE>
+    <SUITE FILE_PATH="coverage/ronQi2Silver$RonQI2SilverTest_Inicializar_inicializar_configurarSensorPresionEsFalso_devuelveFalse.exec" NAME="RonQI2SilverTest$Inicializar.inicializar_configurarSensorPresionEsFalso_devuelveFalse Coverage Results" MODIFIED="1712953585537" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="jacoco" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false">
+      <FILTER>org.mps.ronqi2.*</FILTER>
+    </SUITE>
+    <SUITE FILE_PATH="coverage/ronQi2Silver$RonQI2SilverTest_Inicializar_inicializar_sensorNulo_lanzaException.ic" NAME="RonQI2SilverTest$Inicializar.inicializar_sensorNulo_lanzaException Coverage Results" MODIFIED="1712950198677" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false">
+      <FILTER>org.mps.ronqi2.*</FILTER>
+    </SUITE>
+    <SUITE FILE_PATH="coverage/ronQi2Silver$RonQI2SilverTest_Inicializar_inicializar_configurarSensorPresionEsFalso_devuelveFalse.ic" NAME="RonQI2SilverTest$Inicializar.inicializar_configurarSensorPresionEsFalso_devuelveFalse Coverage Results" MODIFIED="1712953559000" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false">
+      <FILTER>org.mps.ronqi2.*</FILTER>
+    </SUITE>
+    <SUITE FILE_PATH="coverage/ronQi2Silver$ronQI2Silvertest_evaluarApneaSuenyo.exec" NAME="ronQI2Silvertest$evaluarApneaSuenyo Coverage Results" MODIFIED="1712737197712" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="jacoco" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false">
+      <FILTER>org.mps.ronqi2.*</FILTER>
+    </SUITE>
+    <SUITE FILE_PATH="coverage/ronQi2Silver$RonQI2SilverTest.exec" NAME="RonQI2SilverTest Coverage Results" MODIFIED="1713257767459" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="jacoco" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false">
+      <FILTER>org.mps.ronqi2.RonQI2Silver</FILTER>
+      <FILTER>org.mps.ronqi2.RonQI2</FILTER>
+    </SUITE>
   </component>
 </project>
