@@ -23,7 +23,7 @@ public class EvolutionaryAlgorithmTest {
     @Nested
     class Constructor{
         @Test
-        @DisplayName("Constructor with null SelectionOperator throws exception")
+        @DisplayName("Throws exception with null SelectionOperator")
         void constructor_nullSelectionOperator_throwsException(){
             selectionOperator = null;
             mutationOperator = new SwapMutation();
@@ -35,7 +35,7 @@ public class EvolutionaryAlgorithmTest {
         }
 
         @Test
-        @DisplayName("Constructor with null MutationOperator throws exception")
+        @DisplayName("Throws exception with null MutationOperator")
         void constructor_nullMutationOperator_throwsException() throws EvolutionaryAlgorithmException {
             selectionOperator = new TournamentSelection(1);
             mutationOperator = null;
@@ -47,7 +47,7 @@ public class EvolutionaryAlgorithmTest {
         }
 
         @Test
-        @DisplayName("Constructor with null CrossoverOperator throws exception")
+        @DisplayName("Throws exception with null CrossoverOperator ")
         void constructor_nullCrossoverOperator_throwsException() throws EvolutionaryAlgorithmException {
             selectionOperator = new TournamentSelection(1);
             mutationOperator = new SwapMutation();
@@ -59,7 +59,7 @@ public class EvolutionaryAlgorithmTest {
         }
 
         @Test
-        @DisplayName("Constructor with valid arguments builds EvolutiyonaryAlgorithm")
+        @DisplayName("Builds EvolutiyonaryAlgorithm with valid arguments ")
         void constructor_validArguments_buildsEvolutionaryAlgorithm() throws EvolutionaryAlgorithmException {
             selectionOperator = new TournamentSelection(1);
             mutationOperator = new SwapMutation();
@@ -107,7 +107,7 @@ public class EvolutionaryAlgorithmTest {
     @Nested
     class SetSelectionOperator{
         @Test
-        @DisplayName("Setting null operator throws EvolutionaryAlgorithmException")
+        @DisplayName("Throws EvolutionaryAlgorithmException with null operator")
         void setSelectionOperator_nullOperator_throwsEvolutionaryAlgorithmException(){
             assertThrows(EvolutionaryAlgorithmException.class, ()->{
                 algorithm.setSelectionOperator(null);
@@ -115,7 +115,7 @@ public class EvolutionaryAlgorithmTest {
         }
 
         @Test
-        @DisplayName("Setting valid operator changes the algorithm's operator")
+        @DisplayName("Changes the algorithm's operator with valid operator")
         void setSelectionOperator_validOperator_changesOperator() throws EvolutionaryAlgorithmException {
             SelectionOperator newSelectionOperator = new TournamentSelection(3);
 
@@ -128,7 +128,7 @@ public class EvolutionaryAlgorithmTest {
     @Nested
     class SetMutationOperator{
         @Test
-        @DisplayName("Setting null operator throws EvolutionaryAlgorithmException")
+        @DisplayName("Throws EvolutionaryAlgorithmException with null operator")
         void setMutationOperator_nullOperator_throwsEvolutionaryAlgorithmException(){
             assertThrows(EvolutionaryAlgorithmException.class, ()->{
                 algorithm.setMutationOperator(null);
@@ -136,7 +136,7 @@ public class EvolutionaryAlgorithmTest {
         }
 
         @Test
-        @DisplayName("Setting valid operator changes the algorithm's operator")
+        @DisplayName("Changes the algorithm's operator with valid operator")
         void setMutationOperator_validOperator_changesOperator() throws EvolutionaryAlgorithmException {
             MutationOperator newMutationOperator = new SwapMutation();
 
@@ -149,7 +149,7 @@ public class EvolutionaryAlgorithmTest {
     @Nested
     class SetCrossoverOperator{
         @Test
-        @DisplayName("Setting null operator throws EvolutionaryAlgorithmException")
+        @DisplayName("Throws EvolutionaryAlgorithmException with null operator")
         void setCrossoverOperator_nullOperator_throwsEvolutionaryAlgorithmException(){
             assertThrows(EvolutionaryAlgorithmException.class, ()->{
                 algorithm.setCrossoverOperator(null);
@@ -157,7 +157,7 @@ public class EvolutionaryAlgorithmTest {
         }
 
         @Test
-        @DisplayName("Setting valid operator changes the algorithm's operator")
+        @DisplayName("Changes the algorithm's operator with valid operator")
         void setSelectionOperator_validOperator_changesOperator() throws EvolutionaryAlgorithmException {
             CrossoverOperator newCrossoverOperator = new OnePointCrossover();
 
@@ -170,14 +170,14 @@ public class EvolutionaryAlgorithmTest {
     @Nested
     class Optimize{
         @Test
-        @DisplayName("Optimize null population throws EvolutionaryAlgorithmException")
+        @DisplayName("Throws EvolutionaryAlgorithmException with null population")
         void optimize_nullPopulation_throwsEvolutionaryAlgorithmException(){
             assertThrows(EvolutionaryAlgorithmException.class, ()->{
                 int[][] optimizedPopulation = algorithm.optimize(null);
             });
         }
         @Test
-        @DisplayName("Optimize population with null attributes throws EvolutionaryAlgorithmException")
+        @DisplayName("Throws EvolutionaryAlgorithmException with a population with null attributes")
         void optimize_nullAttributesPopulation_throwsEvolutionaryAlgorithmException(){
             int[][] population = {null, null};
             assertThrows(EvolutionaryAlgorithmException.class, ()->{
@@ -185,7 +185,7 @@ public class EvolutionaryAlgorithmTest {
             });
         }
         @Test
-        @DisplayName("Optimize empty population throws EvolutionaryAlgorithmException")
+        @DisplayName("Throws EvolutionaryAlgorithmException with empty population")
         void optimize_emptyPopulation_throwsEvolutionaryAlgorithmException(){
             int[][] population = {};
             assertThrows(EvolutionaryAlgorithmException.class, ()->{
@@ -193,7 +193,7 @@ public class EvolutionaryAlgorithmTest {
             });
         }
         @Test
-        @DisplayName("Optimize population with empty attributes throws EvolutionaryAlgorithmException")
+        @DisplayName("Throws EvolutionaryAlgorithmException with a population with empty attributes")
         void optimize_emptyAttributesPopulation_throwsEvolutionaryAlgorithmException(){
             int[][] population = {{},{}};
             assertThrows(EvolutionaryAlgorithmException.class, ()->{
@@ -202,7 +202,7 @@ public class EvolutionaryAlgorithmTest {
         }
 
         @Test
-        @DisplayName("Optimize population with single individual throws EvolutionaryAlgorithmException")
+        @DisplayName("Throws EvolutionaryAlgorithmException with a population with single individual")
         void optimize_singleIndividualPopulation_returnsPopulationThrowsEvolutionaryAlgorithmException() throws EvolutionaryAlgorithmException {
             int[][] population = {{4,5,6}};
 
@@ -212,7 +212,7 @@ public class EvolutionaryAlgorithmTest {
         }
 
         @Test
-        @DisplayName("Optimize odd population throws EvolutionaryAlgorithmException")
+        @DisplayName("Throws EvolutionaryAlgorithmException with an odd population")
         void optimize_oddPopulation_returnsPopulationThrowsEvolutionaryAlgorithmException() throws EvolutionaryAlgorithmException {
             int[][] population = {{1,2,3}, {4,5,6}, {7,8,9}};
 
@@ -222,7 +222,7 @@ public class EvolutionaryAlgorithmTest {
         }
 
         @Test
-        @DisplayName("Optimize population with different attribute's sizes throws EvolutionaryAlgorithmException")
+        @DisplayName("Throws EvolutionaryAlgorithmException with a population with different attribute's sizes")
         void optimize_differentAttributeSizesPopulation_throwsEvolutionaryAlgorithmException(){
             int[][] population = {{1,2},{1}};
             assertThrows(EvolutionaryAlgorithmException.class, ()->{
@@ -231,7 +231,7 @@ public class EvolutionaryAlgorithmTest {
         }
 
         @Test
-        @DisplayName("Optimize single attribute population returns a population of the same size")
+        @DisplayName("Returns a population of the same size with a single attribute population")
         void optimize_oddPopulation_returnsPopulationTheSameSize() throws EvolutionaryAlgorithmException {//Test innecesario porque se comprueba en los tests de crossover?????
             int[][] population = {{1},{4},{7},{3}};
 
@@ -241,7 +241,7 @@ public class EvolutionaryAlgorithmTest {
         }
 
         @Test
-        @DisplayName("Optimize valid population returns a population of the same size")
+        @DisplayName("Returns a population of the same size with a valid population")
         void optimize_validPopulation_returnsPopulationTheSameSize() throws EvolutionaryAlgorithmException {//Test innecesario porque se comprueba en los tests de crossover?????
             int[][] population = {{1,2,3,4,5,6},{7,8,9,10,11,12},{13,14,15,16,17,18},{19,20,21,22,23,24}};
             int expectedPopulationLength = population.length;
