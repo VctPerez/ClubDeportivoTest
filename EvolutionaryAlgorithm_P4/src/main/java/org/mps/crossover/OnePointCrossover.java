@@ -34,6 +34,9 @@ public class OnePointCrossover implements CrossoverOperator {
     @Override
     public int[][] crossover(int[] parent1, int[] parent2) throws EvolutionaryAlgorithmException {
         int[][] offspring = null;
+        // ERROR ENCONTRADO: parent.length > 0 en el if. Si dejamos que la longitud del array parent1 pueda ser 1 va a saltar
+        // excepcion al calcular el crossoverPoint ya que hace parent1.length - 1 que daria 0, y el nextInt() solo puede
+        // recibir por parametros numeros > 0.
         if (parent1 != null && parent2 != null && parent1.length > 1 && parent1.length == parent2.length) {
             offspring = new int[2][parent1.length];
             int crossoverPoint = random.nextInt(parent1.length - 1) + 1; // Punto de cruce aleatorio
