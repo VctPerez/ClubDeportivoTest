@@ -203,7 +203,7 @@ public class EvolutionaryAlgorithmTest {
 
         @Test
         @DisplayName("Throws EvolutionaryAlgorithmException with a population with single individual")
-        void optimize_singleIndividualPopulation_returnsPopulationThrowsEvolutionaryAlgorithmException() throws EvolutionaryAlgorithmException {
+        void optimize_singleIndividualPopulation_throwsEvolutionaryAlgorithmException() {
             int[][] population = {{4,5,6}};
 
             assertThrows(EvolutionaryAlgorithmException.class, ()->{
@@ -213,7 +213,7 @@ public class EvolutionaryAlgorithmTest {
 
         @Test
         @DisplayName("Throws EvolutionaryAlgorithmException with an odd population")
-        void optimize_oddPopulation_returnsPopulationThrowsEvolutionaryAlgorithmException() throws EvolutionaryAlgorithmException {
+        void optimize_oddPopulation_throwsEvolutionaryAlgorithmException() {
             int[][] population = {{1,2,3}, {4,5,6}, {7,8,9}};
 
             assertThrows(EvolutionaryAlgorithmException.class, ()->{
@@ -232,17 +232,23 @@ public class EvolutionaryAlgorithmTest {
 
         @Test
         @DisplayName("Returns a population of the same size with a single attribute population")
-        void optimize_oddPopulation_returnsPopulationTheSameSize() throws EvolutionaryAlgorithmException {//Test innecesario porque se comprueba en los tests de crossover?????
+        void optimize_singleAttributePopulation_returnsPopulationTheSameSize() throws EvolutionaryAlgorithmException {
             int[][] population = {{1},{4},{7},{3}};
+            int expectedPopulationLength = population.length;
+            int expectedAttributesLength = population[0].length;
 
-            assertThrows(EvolutionaryAlgorithmException.class, ()->{
-                int[][] optimizedPopulation =algorithm.optimize(population);
-            });
+            int[][] optimizedPopulation = algorithm.optimize(population);
+
+            assertEquals(expectedPopulationLength, optimizedPopulation.length);
+            assertEquals(expectedAttributesLength, optimizedPopulation[0].length);
+            assertEquals(expectedAttributesLength, optimizedPopulation[1].length);
+            assertEquals(expectedAttributesLength, optimizedPopulation[2].length);
+            assertEquals(expectedAttributesLength, optimizedPopulation[3].length);
         }
 
         @Test
         @DisplayName("Returns a population of the same size with a valid population")
-        void optimize_validPopulation_returnsPopulationTheSameSize() throws EvolutionaryAlgorithmException {//Test innecesario porque se comprueba en los tests de crossover?????
+        void optimize_validPopulation_returnsPopulationTheSameSize() throws EvolutionaryAlgorithmException {
             int[][] population = {{1,2,3,4,5,6},{7,8,9,10,11,12},{13,14,15,16,17,18},{19,20,21,22,23,24}};
             int expectedPopulationLength = population.length;
             int expectedAttributesLength = population[0].length;
@@ -253,6 +259,7 @@ public class EvolutionaryAlgorithmTest {
             assertEquals(expectedAttributesLength, optimizedPopulation[0].length);
             assertEquals(expectedAttributesLength, optimizedPopulation[1].length);
             assertEquals(expectedAttributesLength, optimizedPopulation[2].length);
+            assertEquals(expectedAttributesLength, optimizedPopulation[3].length);
         }
 
     }
