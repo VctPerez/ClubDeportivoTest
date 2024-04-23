@@ -4,6 +4,9 @@ import org.mps.crossover.CrossoverOperator;
 import org.mps.mutation.MutationOperator;
 import org.mps.selection.SelectionOperator;
 
+import java.lang.reflect.Array;
+import java.util.Arrays;
+
 /**
  * La clase EvolutionaryAlgorithm representa un algoritmo evolutivo básico que
  * se utiliza para resolver problemas de optimización.
@@ -48,14 +51,17 @@ public class EvolutionaryAlgorithm {
         return mutationOperator;
     }
 
-    public void setMutationOperator(MutationOperator mutationOperator) {
+    public void setMutationOperator(MutationOperator mutationOperator) throws EvolutionaryAlgorithmException {
+        if(mutationOperator==null){
+            throw new EvolutionaryAlgorithmException("mutationOperator is null");
+        }
         this.mutationOperator = mutationOperator;
     }
 
     public int[][] optimize(int[][] population) throws EvolutionaryAlgorithmException {
-
-        if (population != null && population.length > 0 && population[0]!=null && population[0].length>0) {
+        if (population != null && population.length > 0 && population[0]!=null && population[0].length>0 && population.length%2==0) {//JBR ADDED: odd populations should not be valid
             // Creamos una nueva población para los descendientes
+
             int[][] offspringPopulation = new int[population.length][population.length];
 
             // Aplicamos operadores de selección y cruce para generar descendientes
@@ -66,6 +72,7 @@ public class EvolutionaryAlgorithm {
 
                 // Aplicamos el operador de cruce para generar dos descendientes
                 int[][] offspring = crossoverOperator.crossover(parent1, parent2);
+
                 offspringPopulation[i] = offspring[0];
                 offspringPopulation[i + 1] = offspring[1];
             }
@@ -74,6 +81,7 @@ public class EvolutionaryAlgorithm {
             for (int i = 0; i < offspringPopulation.length; i++) {
                 offspringPopulation[i] = mutationOperator.mutate(offspringPopulation[i]);
             }
+
 
             // Reemplazo
             for (int i = 0; i < population.length; i++) {
@@ -95,18 +103,22 @@ public class EvolutionaryAlgorithm {
     private boolean better(int[] population1, int[] population2) {
         int suma1 = 0;
         int suma2 = 0;
+
         for (int i = 0; i < population1.length; i++) {
             suma1 += population1[i];
             suma2 += population2[i];
         }
-        return suma1 < suma2;
+        return suma1 > suma2;
     }
 
     public SelectionOperator getSelectionOperator() {
         return this.selectionOperator;
     }
 
-    public void setSelectionOperator(SelectionOperator selectionOperator) {
+    public void setSelectionOperator(SelectionOperator selectionOperator) throws EvolutionaryAlgorithmException {
+        if(selectionOperator==null){
+            throw new EvolutionaryAlgorithmException("selectionOperator is null");
+        }
         this.selectionOperator = selectionOperator;
     }
 
@@ -114,7 +126,10 @@ public class EvolutionaryAlgorithm {
         return this.crossoverOperator;
     }
 
-    public void setCrossoverOperator(CrossoverOperator crossoverOperator) {
+    public void setCrossoverOperator(CrossoverOperator crossoverOperator) throws EvolutionaryAlgorithmException {
+        if(crossoverOperator==null){
+            throw new EvolutionaryAlgorithmException("crossoverOperator is null");
+        }
         this.crossoverOperator = crossoverOperator;
     }
 
