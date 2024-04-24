@@ -8,7 +8,7 @@ import org.mps.selection.TournamentSelection;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-public class TournamentSelectionTest {
+public class TournamentSelectionTest {//Trabajo en Grupo de David Bueno Carmona, Victor Perez Armenta y Jose Ángel Bueno Ruiz
 
     TournamentSelection tournamentSelection;
 

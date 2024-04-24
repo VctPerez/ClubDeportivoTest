@@ -14,7 +14,7 @@ import java.lang.reflect.Array;
 import java.util.Arrays;
 
 
-public class EvolutionaryAlgorithmTest {
+public class EvolutionaryAlgorithmTest {//Trabajo en Grupo de David Bueno Carmona, Victor Perez Armenta y Jose Ángel Bueno Ruiz
     EvolutionaryAlgorithm algorithm;
     SelectionOperator selectionOperator;
     MutationOperator mutationOperator;

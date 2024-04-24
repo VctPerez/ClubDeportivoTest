@@ -8,7 +8,7 @@ import org.mps.EvolutionaryAlgorithmException;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-public class OnePointCrossoverTest {
+public class OnePointCrossoverTest { //Trabajo en Grupo de David Bueno Carmona, Victor Perez Armenta y Jose Ángel Bueno Ruiz
 
     @Nested
     class Crossover{
