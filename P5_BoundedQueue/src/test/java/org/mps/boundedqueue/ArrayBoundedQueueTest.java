@@ -1,4 +1,10 @@
 package org.mps.boundedqueue;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Nested;
+import org.junit.jupiter.api.Test;
+
+import static org.assertj.core.api.Assertions.*;
 
 import org.junit.jupiter.api.*;
 
@@ -205,4 +211,72 @@ public class ArrayBoundedQueueTest {
 
     }
 
+    ArrayBoundedQueue<Integer> queue;
+
+    @BeforeEach
+    void setUp() {queue = new ArrayBoundedQueue<>(5);}
+
+    @Nested
+    class Put{
+        @Test
+        @DisplayName("Throws IllegalArgumentException with null value")
+        public void put_nullValue_throwsIllegalArgumentException(){
+            assertThatExceptionOfType(IllegalArgumentException.class).isThrownBy(() -> queue.put(null));
+        }
+
+        @Test
+        @DisplayName("Throws FullBoundedQueueException with full queue")
+        public void put_fullQueue_throwsEmptyBoundedQueueException(){
+            queue.put(1);
+            queue.put(2);
+            queue.put(3);
+            queue.put(4);
+            queue.put(5);
+
+            assertThatExceptionOfType(FullBoundedQueueException.class).isThrownBy(() -> queue.put(6));
+        }
+
+        @Test
+        @DisplayName("Increases non-full queue size with valid element")
+        public void put_notFullQueue_increasesItsSize(){
+            int expectedSize = queue.size() + 1;
+
+            queue.put(1);
+
+            assertThat(queue.size()).isEqualTo(expectedSize);
+        }
+
+        @Test
+        @DisplayName("Adds element to non-full queue with valid element")
+        public void put_notFullQueue_addsElementToQueue(){
+            int expectedElement = 1;
+
+            queue.put(expectedElement);
+
+            assertThat(queue).isNotEmpty();
+            assertThat(queue.get()).isEqualTo(expectedElement);
+        }
+
+        @Test
+        @DisplayName("Increases non-full queue nextElement index")
+        public void put_notFullQueue_increasesNextElementIndex(){
+            int expectedNextElement = queue.getLast()+1;
+
+            queue.put(1);
+
+            assertThat(queue.getLast()).isEqualTo(expectedNextElement);
+        }
+
+        @Test
+        @DisplayName("Maintains non-full queue circular slice for nextElement")
+        public void put_notFullQueue_maintainsNextElementCircular(){
+            int expectedNextElement = queue.getLast();
+
+            for(int i = 0; i< queue.size(); i++){
+                queue.put(0);
+            }
+
+            assertThat(queue.getLast()).isEqualTo(expectedNextElement);
+        }
+    }
 }
