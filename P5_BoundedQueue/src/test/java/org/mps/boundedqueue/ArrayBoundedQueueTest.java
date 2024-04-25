@@ -68,7 +68,7 @@ public class ArrayBoundedQueueTest {
         public void isEmpty_size0_returnsTrue(){
             ArrayBoundedQueue<Integer> arrayBoundedQueue = new ArrayBoundedQueue<>(2);
 
-            assertThat(arrayBoundedQueue.isEmpty()).isTrue();
+            assertThat(arrayBoundedQueue).isEmpty();
         }
 
         @Test
@@ -77,7 +77,20 @@ public class ArrayBoundedQueueTest {
             ArrayBoundedQueue<Integer> arrayBoundedQueue = new ArrayBoundedQueue<>(2);
             arrayBoundedQueue.put(1);
 
-            assertThat(arrayBoundedQueue.isEmpty()).isFalse();
+            assertThat(arrayBoundedQueue).isNotEmpty();
+        }
+    }
+
+    @Nested
+    class Size{
+        @Test
+        @DisplayName("Returns the numbers of elements in the queue")
+        public void size_returnsNumberOfElements(){
+            ArrayBoundedQueue<Integer> arrayBoundedQueue = new ArrayBoundedQueue<>(3);
+            arrayBoundedQueue.put(1);
+            arrayBoundedQueue.put(2);
+
+            assertThat(arrayBoundedQueue).hasSize(2);
         }
     }
 
