@@ -61,5 +61,24 @@ public class ArrayBoundedQueueTest {
             assertThat(arrayBoundedQueue.isFull()).isTrue();
         }
     }
+    @Nested
+    class IsEmpty{
+        @Test
+        @DisplayName("Returns true if size is 0.")
+        public void isEmpty_size0_returnsTrue(){
+            ArrayBoundedQueue<Integer> arrayBoundedQueue = new ArrayBoundedQueue<>(2);
+
+            assertThat(arrayBoundedQueue.isEmpty()).isTrue();
+        }
+
+        @Test
+        @DisplayName("Returns false if size is greater than 0.")
+        public void isEmpty_sizeGreaterThan0_returnsFalse(){
+            ArrayBoundedQueue<Integer> arrayBoundedQueue = new ArrayBoundedQueue<>(2);
+            arrayBoundedQueue.put(1);
+
+            assertThat(arrayBoundedQueue.isEmpty()).isFalse();
+        }
+    }
 
 }
