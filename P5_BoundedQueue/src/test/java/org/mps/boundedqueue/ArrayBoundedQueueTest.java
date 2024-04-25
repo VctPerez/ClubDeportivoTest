@@ -35,7 +35,31 @@ public class ArrayBoundedQueueTest {
             assertThat(arrayBoundedQueue).hasSize(0);
             assertThat(arrayBoundedQueue.getFirst()).isEqualTo(0);
             assertThat(arrayBoundedQueue.getLast()).isEqualTo(0);
-        }   
+        }
+    }
+
+    @Nested
+    class IsFull{
+
+        @Test
+        @DisplayName("Returns false if size occupied isn't equal to capacity.")
+        public void isFull_sizeDifferentCapacity_returnsFalse(){
+            int capacity = 2;
+            ArrayBoundedQueue<Integer> arrayBoundedQueue = new ArrayBoundedQueue<>(capacity);
+
+            assertThat(arrayBoundedQueue.isFull()).isFalse();
+        }
+
+        @Test
+        @DisplayName("Returns true if size occupied is equal to capacity.")
+        public void isFull_sizeEqualCapacity_returnsFalse(){
+            int capacity = 2;
+            ArrayBoundedQueue<Integer> arrayBoundedQueue = new ArrayBoundedQueue<>(capacity);
+            arrayBoundedQueue.put(1);
+            arrayBoundedQueue.put(1);
+
+            assertThat(arrayBoundedQueue.isFull()).isTrue();
+        }
     }
 
 }
