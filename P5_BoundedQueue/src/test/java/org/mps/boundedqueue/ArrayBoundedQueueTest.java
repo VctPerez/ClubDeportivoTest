@@ -6,6 +6,13 @@ import java.util.Iterator;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Nested;
+import org.junit.jupiter.api.Test;
+
+import java.lang.reflect.Array;
+
+import static org.assertj.core.api.Assertions.*;
 
 public class ArrayBoundedQueueTest {
 
@@ -134,6 +141,68 @@ public class ArrayBoundedQueueTest {
                 assertThat(arrayBoundedQueueIterator).isExhausted();
             }
         }
+    public class Get {
+
+        @Test
+        @DisplayName("Throw Exception on Empty queue")
+        public void get_emptyQueue_ThrowsException() {
+            ArrayBoundedQueue arrayBoundedQueue = new ArrayBoundedQueue(10);
+
+            assertThatExceptionOfType(EmptyBoundedQueueException.class).isThrownBy(() -> arrayBoundedQueue.get());
+            assertThat(arrayBoundedQueue.getFirst()).isEqualTo(0);
+        }
+
+        @Test
+        @DisplayName("Using get on a not-empty list, reduce the size")
+        public void get_validQueue_ReduceSize() {
+            ArrayBoundedQueue arrayBoundedQueue = new ArrayBoundedQueue(10);
+            arrayBoundedQueue.put(1);
+            arrayBoundedQueue.put(2);
+
+            arrayBoundedQueue.get();
+
+            assertThat(arrayBoundedQueue.size()).isEqualTo(1);
+        }
+
+        @Test
+        @DisplayName("Using get on a not-empty list, returns the element")
+        public void get_validQueue_ReturnsElement() {
+            ArrayBoundedQueue arrayBoundedQueue = new ArrayBoundedQueue(10);
+            arrayBoundedQueue.put(1);
+            arrayBoundedQueue.put(2);
+
+            Object res = arrayBoundedQueue.get();
+
+            assertThat(res).isEqualTo(1);
+        }
+
+        @Test
+        @DisplayName("Using get on a not-empty list, update first")
+        public void get_validQueue_UpdateFirst() {
+            ArrayBoundedQueue arrayBoundedQueue = new ArrayBoundedQueue(10);
+            arrayBoundedQueue.put(1);
+            arrayBoundedQueue.put(2);
+
+            arrayBoundedQueue.get();
+
+            assertThat(arrayBoundedQueue.getFirst()).isEqualTo(1);
+        }
+
+        @Test
+        @DisplayName("Mantains circular slice for first element")
+        public void get_testCircularSlice_ReturnFirst() {
+            ArrayBoundedQueue arrayBoundedQueue = new ArrayBoundedQueue(2);
+            arrayBoundedQueue.put(1);
+            arrayBoundedQueue.put(2);
+            arrayBoundedQueue.get();
+            arrayBoundedQueue.put(3);
+            arrayBoundedQueue.get();
+
+            int res = arrayBoundedQueue.getFirst();
+
+            assertThat(res).isEqualTo(0);
+        }
+
     }
 
 }
