@@ -1,8 +1,8 @@
 package org.mps.boundedqueue;
 
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Nested;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.*;
+
+import java.util.Iterator;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
@@ -91,6 +91,48 @@ public class ArrayBoundedQueueTest {
             arrayBoundedQueue.put(2);
 
             assertThat(arrayBoundedQueue).hasSize(2);
+        }
+    }
+
+    @Nested
+    class Iterator{
+        ArrayBoundedQueue<Integer> arrayBoundedQueue;
+
+        @BeforeEach
+        public void initIteratorTests(){
+            arrayBoundedQueue = new ArrayBoundedQueue<>(3);
+        }
+
+
+        @Test
+        @DisplayName("Returns an Iterator Object")
+        public void iterator_returnsIteratorType(){
+            java.util.Iterator<Integer> arrayBoundedQueueIterator = arrayBoundedQueue.iterator();
+            assertThat(arrayBoundedQueueIterator).isInstanceOf(java.util.Iterator.class);
+        }
+
+        @Nested
+        class HasNext{
+            @Test
+            @DisplayName("Returns true if there aren't visited elements.")
+            public void hasNext_visitedLessSize_returnsTrue(){
+                arrayBoundedQueue.put(1);
+                arrayBoundedQueue.put(2);
+                java.util.Iterator<Integer> arrayBoundedQueueIterator = arrayBoundedQueue.iterator();
+                arrayBoundedQueueIterator.next();
+
+                assertThat(arrayBoundedQueueIterator).hasNext();
+            }
+
+            @Test
+            @DisplayName("Returns False if all elements are visited.")
+            public void hasNext_visitedEqualSize_returnsFalse(){
+                arrayBoundedQueue.put(2);
+                java.util.Iterator<Integer> arrayBoundedQueueIterator = arrayBoundedQueue.iterator();
+                arrayBoundedQueueIterator.next();
+
+                assertThat(arrayBoundedQueueIterator).isExhausted();
+            }
         }
     }
 
