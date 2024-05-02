@@ -17,6 +17,7 @@ import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 
 import java.lang.reflect.Array;
+import java.util.NoSuchElementException;
 
 import static org.assertj.core.api.Assertions.*;
 
@@ -124,28 +125,43 @@ public class ArrayBoundedQueueTest {
             assertThat(arrayBoundedQueueIterator).isInstanceOf(java.util.Iterator.class);
         }
 
-        @Nested
-        class HasNext {
-            @Test
-            @DisplayName("Returns true if there aren't visited elements.")
-            public void hasNext_visitedLessSize_returnsTrue() {
-                arrayBoundedQueue.put(1);
-                arrayBoundedQueue.put(2);
-                java.util.Iterator<Integer> arrayBoundedQueueIterator = arrayBoundedQueue.iterator();
-                arrayBoundedQueueIterator.next();
+        @Test
+        @DisplayName("Iterates over the elements of the ArrayBoundedQueue")
+        public void iterator_iteratesCorrectlyOverQueueElements() {
+            arrayBoundedQueue.put(2);
+            arrayBoundedQueue.put(1);
+            arrayBoundedQueue.put(3);
 
-                assertThat(arrayBoundedQueueIterator).hasNext();
-            }
+            java.util.Iterator<Integer> arrayBoundedQueueIterator = arrayBoundedQueue.iterator();
 
-            @Test
-            @DisplayName("Returns False if all elements are visited.")
-            public void hasNext_visitedEqualSize_returnsFalse() {
-                arrayBoundedQueue.put(2);
-                java.util.Iterator<Integer> arrayBoundedQueueIterator = arrayBoundedQueue.iterator();
-                arrayBoundedQueueIterator.next();
+            assertThat(arrayBoundedQueueIterator.next()).isEqualTo(2);
+            assertThat(arrayBoundedQueueIterator.next()).isEqualTo(1);
+            assertThat(arrayBoundedQueueIterator.next()).isEqualTo(3);
+        }
 
-                assertThat(arrayBoundedQueueIterator).isExhausted();
-            }
+        @Test
+        @DisplayName("Throws NoSuchElementException on empty ArrayBoundedQueue")
+        public void iterator_emptyQueue_throwsNoSuchElementException() {
+            java.util.Iterator<Integer> arrayBoundedQueueIterator = arrayBoundedQueue.iterator();
+
+            assertThat(arrayBoundedQueueIterator).isExhausted();
+            assertThatExceptionOfType(NoSuchElementException.class).isThrownBy(arrayBoundedQueueIterator::next);
+        }
+
+        @Test
+        @DisplayName("Throws NoSuchElementException after iteration all the elements of the ArrayBoundedQueue")
+        public void iterator_afterIteratingOverAllQueueElements_throwsNoSuchElementException() {
+            arrayBoundedQueue.put(2);
+            arrayBoundedQueue.put(1);
+            arrayBoundedQueue.put(3);
+
+            java.util.Iterator<Integer> arrayBoundedQueueIterator = arrayBoundedQueue.iterator();
+
+            arrayBoundedQueueIterator.next();
+            arrayBoundedQueueIterator.next();
+            arrayBoundedQueueIterator.next();
+            assertThat(arrayBoundedQueueIterator).isExhausted();
+            assertThatExceptionOfType(NoSuchElementException.class).isThrownBy(arrayBoundedQueueIterator::next);
         }
     }
     @Nested
