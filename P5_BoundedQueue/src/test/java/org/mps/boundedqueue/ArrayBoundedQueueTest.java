@@ -108,27 +108,27 @@ public class ArrayBoundedQueueTest {
     }
 
     @Nested
-    class Iterator{
+    class Iterator {
         ArrayBoundedQueue<Integer> arrayBoundedQueue;
 
         @BeforeEach
-        public void initIteratorTests(){
+        public void initIteratorTests() {
             arrayBoundedQueue = new ArrayBoundedQueue<>(3);
         }
 
 
         @Test
         @DisplayName("Returns an Iterator Object")
-        public void iterator_returnsIteratorType(){
+        public void iterator_returnsIteratorType() {
             java.util.Iterator<Integer> arrayBoundedQueueIterator = arrayBoundedQueue.iterator();
             assertThat(arrayBoundedQueueIterator).isInstanceOf(java.util.Iterator.class);
         }
 
         @Nested
-        class HasNext{
+        class HasNext {
             @Test
             @DisplayName("Returns true if there aren't visited elements.")
-            public void hasNext_visitedLessSize_returnsTrue(){
+            public void hasNext_visitedLessSize_returnsTrue() {
                 arrayBoundedQueue.put(1);
                 arrayBoundedQueue.put(2);
                 java.util.Iterator<Integer> arrayBoundedQueueIterator = arrayBoundedQueue.iterator();
@@ -139,7 +139,7 @@ public class ArrayBoundedQueueTest {
 
             @Test
             @DisplayName("Returns False if all elements are visited.")
-            public void hasNext_visitedEqualSize_returnsFalse(){
+            public void hasNext_visitedEqualSize_returnsFalse() {
                 arrayBoundedQueue.put(2);
                 java.util.Iterator<Integer> arrayBoundedQueueIterator = arrayBoundedQueue.iterator();
                 arrayBoundedQueueIterator.next();
@@ -147,21 +147,23 @@ public class ArrayBoundedQueueTest {
                 assertThat(arrayBoundedQueueIterator).isExhausted();
             }
         }
-    public class Get {
+    }
+    @Nested
+    class Get {
 
         @Test
         @DisplayName("Throw Exception on Empty queue")
         public void get_emptyQueue_ThrowsException() {
-            ArrayBoundedQueue arrayBoundedQueue = new ArrayBoundedQueue(10);
+            ArrayBoundedQueue<Integer> arrayBoundedQueue = new ArrayBoundedQueue<>(10);
 
-            assertThatExceptionOfType(EmptyBoundedQueueException.class).isThrownBy(() -> arrayBoundedQueue.get());
+            assertThatExceptionOfType(EmptyBoundedQueueException.class).isThrownBy(arrayBoundedQueue::get);
             assertThat(arrayBoundedQueue.getFirst()).isEqualTo(0);
         }
 
         @Test
         @DisplayName("Using get on a not-empty list, reduce the size")
         public void get_validQueue_ReduceSize() {
-            ArrayBoundedQueue arrayBoundedQueue = new ArrayBoundedQueue(10);
+            ArrayBoundedQueue<Integer> arrayBoundedQueue = new ArrayBoundedQueue<>(10);
             arrayBoundedQueue.put(1);
             arrayBoundedQueue.put(2);
 
@@ -173,7 +175,7 @@ public class ArrayBoundedQueueTest {
         @Test
         @DisplayName("Using get on a not-empty list, returns the element")
         public void get_validQueue_ReturnsElement() {
-            ArrayBoundedQueue arrayBoundedQueue = new ArrayBoundedQueue(10);
+            ArrayBoundedQueue<Integer> arrayBoundedQueue = new ArrayBoundedQueue<>(10);
             arrayBoundedQueue.put(1);
             arrayBoundedQueue.put(2);
 
@@ -185,7 +187,7 @@ public class ArrayBoundedQueueTest {
         @Test
         @DisplayName("Using get on a not-empty list, update first")
         public void get_validQueue_UpdateFirst() {
-            ArrayBoundedQueue arrayBoundedQueue = new ArrayBoundedQueue(10);
+            ArrayBoundedQueue<Integer> arrayBoundedQueue = new ArrayBoundedQueue<>(10);
             arrayBoundedQueue.put(1);
             arrayBoundedQueue.put(2);
 
@@ -197,7 +199,7 @@ public class ArrayBoundedQueueTest {
         @Test
         @DisplayName("Mantains circular slice for first element")
         public void get_testCircularSlice_ReturnFirst() {
-            ArrayBoundedQueue arrayBoundedQueue = new ArrayBoundedQueue(2);
+            ArrayBoundedQueue<Integer> arrayBoundedQueue = new ArrayBoundedQueue<>(2);
             arrayBoundedQueue.put(1);
             arrayBoundedQueue.put(2);
             arrayBoundedQueue.get();
