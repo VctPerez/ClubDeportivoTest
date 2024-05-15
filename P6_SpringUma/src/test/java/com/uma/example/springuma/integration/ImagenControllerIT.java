@@ -10,29 +10,21 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.web.server.LocalServerPort;
 import org.springframework.core.io.FileSystemResource;
 import org.springframework.http.MediaType;
 import org.springframework.http.client.MultipartBodyBuilder;
-import org.springframework.mock.web.MockMultipartFile;
 import org.springframework.test.web.reactive.server.FluxExchangeResult;
 import org.springframework.test.web.reactive.server.WebTestClient;
-import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.reactive.function.BodyInserters;
 import reactor.core.publisher.Mono;
 
-import java.awt.*;
+import java.util.*;
 import java.io.File;
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
 import java.time.Duration;
 
-import static org.hamcrest.Matchers.hasSize;
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 public class ImagenControllerIT extends AbstractIntegration {
@@ -44,7 +36,7 @@ public class ImagenControllerIT extends AbstractIntegration {
     private Paciente paciente;
 
     private final String HEALTHY_IMG = "./src/test/resources/healthy.png";
-    private final String UNHEALTHY_IMG = "./src/test/resources/unhealthy.png";
+    private final String UNHEALTHY_IMG = "./src/test/resources/no_healthty.png";
 
 
     @LocalServerPort
@@ -91,35 +83,34 @@ public class ImagenControllerIT extends AbstractIntegration {
                 .expectBody().returnResult();
     }
 
-    private FluxExchangeResult<String> saveImage() {
-        File uploadImage = new File(HEALTHY_IMG);
+    private FluxExchangeResult<String> saveImage(String path) {
+        File uploadImage = new File(path);
 
         MultipartBodyBuilder builder = new MultipartBodyBuilder();
         builder.part("image", new FileSystemResource(uploadImage));
         builder.part("paciente", paciente);
 
-        FluxExchangeResult<String> responseBody = webTestClient.post().uri("/imagen").contentType(MediaType.MULTIPART_FORM_DATA)
+        return webTestClient.post().uri("/imagen").contentType(MediaType.MULTIPART_FORM_DATA)
                 .body(BodyInserters.fromMultipartData(builder.build()))
                 .exchange().expectStatus().is2xxSuccessful().returnResult(String.class);
-
-        return responseBody;
     }
 
     @Test
-    @DisplayName("Subir imagen con un paciente valido")
-    public void uploadImage_pacienteValido_returnsOk() throws IOException {
+    @DisplayName("Subir imagen con un path valido")
+    public void uploadImage_returnsOk(){
         saveMedico();
         savePaciente();
-        String response = saveImage().getResponseBody().blockFirst();
+        String response = saveImage(HEALTHY_IMG).getResponseBody().blockFirst();
 
         assertEquals("{\"response\" : \"file uploaded successfully : healthy.png\"}", response);
     }
 
     @Test
+    @DisplayName("DownloadImage con un id valido devuelve la imagen")
     public void downloadImage_idValido_returnsImagen() {
         saveMedico();
         savePaciente();
-        saveImage();
+        saveImage(HEALTHY_IMG);
 
         webTestClient.get().uri("/imagen/{id}", 1).accept(MediaType.IMAGE_PNG)
                 .exchange()
@@ -128,12 +119,103 @@ public class ImagenControllerIT extends AbstractIntegration {
     }
 
     @Test
+    @DisplayName("DownloadImage con un id invalido devuelve error del servidor.")
     public void downloadImage_idInvalido_returnsServerError() {
         saveMedico();
         savePaciente();
 
         webTestClient.get().uri("/imagen/{id}", 1).accept(MediaType.IMAGE_PNG).exchange()
                 .expectStatus().is5xxServerError();
+    }
+
+    @Test
+    @DisplayName("GetImagen con un id valido devuelve OK.")
+    public void getImagen_idValido_returnsOk(){
+        saveMedico();
+        savePaciente();
+        saveImage(HEALTHY_IMG);
+
+        webTestClient.get().uri("/imagen/{id}", 1).accept(MediaType.IMAGE_PNG).exchange()
+                .expectStatus().isOk().returnResult(Imagen.class);
+    }
+
+    @Test
+    @DisplayName("GetImagen con un id invalido devuelve error del servidor.")
+    public void getImagen_idInvalido_returnsServerError() {
+        saveMedico();
+        savePaciente();
+
+        webTestClient.get().uri("/imagen/{id}", 1).accept(MediaType.IMAGE_PNG).exchange()
+                .expectStatus().is5xxServerError();
+    }
+
+    @Test
+    @DisplayName("GetImagenPrediction con un id valido devuelve OK y la prediccion")
+    public void getImagenPrediction_idValido_returnsOk(){
+        saveMedico();
+        savePaciente();
+        saveImage(HEALTHY_IMG);
+
+        webTestClient.get().uri("/imagen/predict/{id}", 1)
+                .accept(MediaType.IMAGE_PNG).exchange().expectStatus().isOk()
+                .returnResult(String.class);
+    }
+
+    @Test
+    @DisplayName("GetIamgenPrediction con un id invalido devuelve error del servidor.")
+    public void getImagenPrediction_idInvalido_returnsServerError() {
+        saveMedico();
+        savePaciente();
+
+        webTestClient.get().uri("/imagen/predict/{id}", 1).accept(MediaType.IMAGE_PNG)
+                .exchange().expectStatus().is5xxServerError();
+    }
+
+    @Test
+    @DisplayName("GetIamgenes sin imagenes guardadas devuelve lista vacia.")
+    public void getImagenes_sinImagenes_returnsListaVacia(){
+        saveMedico();
+        savePaciente();
+
+        List<Imagen> imagenes = webTestClient.get().uri("imagen/paciente/{id}", 1)
+                .exchange().expectBodyList(Imagen.class).returnResult().getResponseBody();
+
+        assertTrue(imagenes.isEmpty());
+    }
+
+    @Test
+    @DisplayName("GetImagenes con imagenes guardadas devulve una lista de imagenes")
+    public void getImagenes_conImagenes_returnsListaConElementos(){
+        saveMedico();
+        savePaciente();
+        saveImage(HEALTHY_IMG);
+        saveImage(UNHEALTHY_IMG);
+
+        List<Imagen> imagenes = webTestClient.get().uri("imagen/paciente/{id}", 1)
+                .exchange().expectBodyList(Imagen.class).returnResult().getResponseBody();
+
+        assertFalse(imagenes.isEmpty());
+    }
+
+    @Test
+    @DisplayName("DeleteCuenta con un id valido se realiza correctamente")
+    public void deleteCuenta_idValido_returnsNoContent(){
+        saveMedico();
+        savePaciente();
+        saveImage(HEALTHY_IMG);
+
+        webTestClient.delete().uri("/imagen/{id}", 1)
+                .exchange().expectStatus().isNoContent();
+    }
+
+    @Test
+    @DisplayName("DeleteCuenta con un id invalido no se realiza")
+    public void deleteCuenta_idInvalido_returnsNoContent() {
+        saveMedico();
+        savePaciente();
+
+        webTestClient.delete().uri("/imagen/{id}", 1)
+                .exchange().expectStatus().isNoContent();
     }
 
 
