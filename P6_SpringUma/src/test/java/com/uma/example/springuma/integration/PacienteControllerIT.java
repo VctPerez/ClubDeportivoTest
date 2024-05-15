@@ -1,6 +1,5 @@
 package com.uma.example.springuma.integration;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.uma.example.springuma.integration.base.AbstractIntegration;
 import com.uma.example.springuma.model.Paciente;
@@ -13,7 +12,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-public class RepositoryPacienteIT extends AbstractIntegration {
+public class PacienteControllerIT extends AbstractIntegration {
     @Autowired
     private MockMvc mockMvc;
 
