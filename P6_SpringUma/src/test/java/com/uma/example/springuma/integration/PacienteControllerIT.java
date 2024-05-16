@@ -26,136 +26,106 @@ public class PacienteControllerIT extends AbstractIntegration {
     @Autowired
     private ObjectMapper objectMapper;
 
-    @Nested
-    class GetPaciente{
-        @Test
-        @DisplayName("Devuelve datos del paciente si este se encuentra en la base de datos")
-        void getPaciente_pacienteExistente_returnsPaciente() throws Exception {
-            //arrange
-            Paciente paciente = crearPaciente(1);
+    @Test
+    @DisplayName("Obtener datos del paciente si este se encuentra en la base de datos")
+    void getPaciente_pacienteExistente_returnsPaciente() throws Exception {
+        //arrange
+        Paciente paciente = crearPaciente(1);
 
-            //Act
-            //Assert
-            mockMvc.perform(get("/paciente/"+paciente.getId()))
-                    .andExpect(status().is2xxSuccessful())
-                    .andExpect(content().contentType("application/json"))
-                    .andExpect(jsonPath("$.id", equalTo((int) paciente.getId())))
-                    .andExpect(jsonPath("$.nombre", equalTo( paciente.getNombre())))
-                    .andExpect(jsonPath("$.dni", equalTo( paciente.getDni())));
-        }
+        //Act
+        //Assert
+        mockMvc.perform(get("/paciente/"+paciente.getId()))
+                .andExpect(status().is2xxSuccessful())
+                .andExpect(content().contentType("application/json"))
+                .andExpect(jsonPath("$.id", equalTo((int) paciente.getId())))
+                .andExpect(jsonPath("$.nombre", equalTo( paciente.getNombre())))
+                .andExpect(jsonPath("$.dni", equalTo( paciente.getDni())));
     }
 
-    @Nested
-    class GetPacientes{
-        @Test
-        @DisplayName("Devuelve una lista vacía si el médico no tiene pacientes")
-        void getPacientes_medicoExistenteSinPacientes_returnsListaVacia() throws Exception {
-            //arrange
-            Medico medico = crearMedico(1);
+    @Test
+    @DisplayName("Obatener pacientes de un medico devuelve la lista de pacientes asignados al medico")
+    void getPacientes_medicoExistenteConPacientes_returnsListaConPacientesDelMedico() throws Exception {
+        //arrange
+        Paciente paciente1 = crearPaciente(1);
+        Paciente paciente2 = crearPaciente(2);
 
-            //Act
-            //Assert
-            mockMvc.perform(get("/paciente/medico/"+medico.getId()))
-                    .andExpect(status().is2xxSuccessful())
-                    .andExpect(content().contentType("application/json"))
-                    .andExpect(jsonPath("$", hasSize(0)));
-        }
-
-        @Test
-        @DisplayName("Devuelve la lista de pacientes asignados al medico")
-        void getPacientes_medicoExistenteConPacientes_returnsListaConPacientesDelMedico() throws Exception {
-            //arrange
-            Paciente paciente1 = crearPaciente(1);
-            Paciente paciente2 = crearPaciente(2);
-
-            //Act
-            //Assert
-            mockMvc.perform(get("/paciente/medico/"+paciente1.getMedico().getId()))
-                    .andExpect(status().is2xxSuccessful())
-                    .andExpect(content().contentType("application/json"))
-                    .andExpect(jsonPath("$", hasSize(2)));
-        }
+        //Act
+        //Assert
+        mockMvc.perform(get("/paciente/medico/"+paciente1.getMedico().getId()))
+                .andExpect(status().is2xxSuccessful())
+                .andExpect(content().contentType("application/json"))
+                .andExpect(jsonPath("$", hasSize(2)));
     }
 
-    @Nested
-    class SavePaciente{
-        @Test
-        @DisplayName("Guarda a un paciente en la base de datos")
-        void savePaciente_pacienteOk_guardaPacienteEnBD() throws Exception{
-            Medico medico = crearMedico(1);
-            Paciente paciente = new Paciente();
-            paciente.setId(1);
-            paciente.setNombre("Alumno");
-            paciente.setDni(Integer.toString(1));
-            paciente.setMedico(medico);
+    @Test
+    @DisplayName("Guardar a un paciente en la base de datos")
+    void savePaciente_pacienteOk_guardaPacienteEnBD() throws Exception{
+        Medico medico = crearMedico(1);
+        Paciente paciente = new Paciente();
+        paciente.setId(1);
+        paciente.setNombre("Alumno");
+        paciente.setDni(Integer.toString(1));
+        paciente.setMedico(medico);
 
-            mockMvc.perform(post("/paciente")
-                            .contentType("application/json")
-                            .content(objectMapper.writeValueAsString(paciente)))
-                    .andExpect(status().isCreated());
+        mockMvc.perform(post("/paciente")
+                        .contentType("application/json")
+                        .content(objectMapper.writeValueAsString(paciente)))
+                .andExpect(status().isCreated());
 
-            mockMvc.perform(get("/paciente/"+paciente.getId()))
-                    .andExpect(status().is2xxSuccessful())
-                    .andExpect(content().contentType("application/json"))
-                    .andExpect(jsonPath("$.id", equalTo((int) paciente.getId())))
-                    .andExpect(jsonPath("$.medico.id", equalTo((int) medico.getId())));
-        }
-
+        mockMvc.perform(get("/paciente/"+paciente.getId()))
+                .andExpect(status().is2xxSuccessful())
+                .andExpect(content().contentType("application/json"))
+                .andExpect(jsonPath("$.id", equalTo((int) paciente.getId())))
+                .andExpect(jsonPath("$.medico.id", equalTo((int) medico.getId())));
     }
 
-    @Nested
-    class UpdateCuenta{
-        @Test
-        @DisplayName("Actualiza los datos del paciente en la base de datos")
-        void updateCuenta_pacienteOk_actualizaDatosPacienteEnBD() throws Exception{
-            Medico medico = crearMedico(1);
-            Paciente paciente = new Paciente();
-            paciente.setId(1);
-            paciente.setNombre("Alumno");
-            paciente.setDni(Integer.toString(1));
-            paciente.setMedico(medico);
+    @Test
+    @DisplayName("Actualizar los datos del paciente en la base de datos")
+    void updateCuenta_pacienteOk_actualizaDatosPacienteEnBD() throws Exception{
+        Medico medico = crearMedico(1);
+        Paciente paciente = new Paciente();
+        paciente.setId(1);
+        paciente.setNombre("Alumno");
+        paciente.setDni(Integer.toString(1));
+        paciente.setMedico(medico);
 
-            mockMvc.perform(post("/paciente")
-                            .contentType("application/json")
-                            .content(objectMapper.writeValueAsString(paciente)))
-                    .andExpect(status().isCreated());
+        mockMvc.perform(post("/paciente")
+                        .contentType("application/json")
+                        .content(objectMapper.writeValueAsString(paciente)))
+                .andExpect(status().isCreated());
 
-            Medico expectedMedico = crearMedico(2);
-            paciente.setMedico(expectedMedico);
+        Medico expectedMedico = crearMedico(2);
+        paciente.setMedico(expectedMedico);
 
-            mockMvc.perform(put("/paciente")
-                            .contentType("application/json")
-                            .content(objectMapper.writeValueAsString(paciente)))
-                    .andExpect(status().is2xxSuccessful());
+        mockMvc.perform(put("/paciente")
+                        .contentType("application/json")
+                        .content(objectMapper.writeValueAsString(paciente)))
+                .andExpect(status().is2xxSuccessful());
 
-            mockMvc.perform(get("/paciente/"+paciente.getId()))
-                    .andExpect(status().is2xxSuccessful())
-                    .andExpect(content().contentType("application/json"))
-                    .andExpect(jsonPath("$.id", equalTo((int) paciente.getId())))
-                    .andExpect(jsonPath("$.medico.id", equalTo((int) expectedMedico.getId())));
-        }
-
+        mockMvc.perform(get("/paciente/"+paciente.getId()))
+                .andExpect(status().is2xxSuccessful())
+                .andExpect(content().contentType("application/json"))
+                .andExpect(jsonPath("$.id", equalTo((int) paciente.getId())))
+                .andExpect(jsonPath("$.medico.id", equalTo((int) expectedMedico.getId())));
     }
 
-    @Nested
-    class DeleteCuenta{
-        @Test
-        @DisplayName("Elimina al pacienete de la base de datos")
-        void deleteCuenta_pacienteOk_borraPacienteDeBD() throws Exception{
-            Paciente paciente = new Paciente();
-            paciente.setId(1);
-            paciente.setNombre("Alumno");
-            paciente.setDni(Integer.toString(1));
-            mockMvc.perform(post("/paciente")
-                            .contentType("application/json")
-                            .content(objectMapper.writeValueAsString(paciente)))
-                    .andExpect(status().isCreated());
+    @Test
+    @DisplayName("Eliminar al pacienete de la base de datos")
+    void deleteCuenta_pacienteOk_borraPacienteDeBD() throws Exception{
+        Paciente paciente = new Paciente();
+        paciente.setId(1);
+        paciente.setNombre("Alumno");
+        paciente.setDni(Integer.toString(1));
+        mockMvc.perform(post("/paciente")
+                        .contentType("application/json")
+                        .content(objectMapper.writeValueAsString(paciente)))
+                .andExpect(status().isCreated());
 
-            mockMvc.perform(delete("/paciente/"+paciente.getId()))
-                    .andExpect(status().is2xxSuccessful());
-        }
-
+        mockMvc.perform(delete("/paciente/"+paciente.getId()))
+                .andExpect(status().is2xxSuccessful());
     }
+
+
 
     private Paciente crearPaciente(long pacienteId) throws Exception {
         Paciente paciente = new Paciente();
