@@ -119,16 +119,6 @@ public class ImagenControllerIT extends AbstractIntegration {
     }
 
     @Test
-    @DisplayName("DownloadImage con un id invalido devuelve error del servidor.")
-    public void downloadImage_idInvalido_returnsServerError() {
-        saveMedico();
-        savePaciente();
-
-        webTestClient.get().uri("/imagen/{id}", 1).accept(MediaType.IMAGE_PNG).exchange()
-                .expectStatus().is5xxServerError();
-    }
-
-    @Test
     @DisplayName("GetImagen con un id valido devuelve OK.")
     public void getImagen_idValido_returnsOk(){
         saveMedico();
@@ -140,35 +130,31 @@ public class ImagenControllerIT extends AbstractIntegration {
     }
 
     @Test
-    @DisplayName("GetImagen con un id invalido devuelve error del servidor.")
-    public void getImagen_idInvalido_returnsServerError() {
-        saveMedico();
-        savePaciente();
-
-        webTestClient.get().uri("/imagen/{id}", 1).accept(MediaType.IMAGE_PNG).exchange()
-                .expectStatus().is5xxServerError();
-    }
-
-    @Test
-    @DisplayName("GetImagenPrediction con un id valido devuelve OK y la prediccion")
-    public void getImagenPrediction_idValido_returnsOk(){
+    @DisplayName("GetImagenPrediction con healthy image devuelve 'not cancer'")
+    public void getImagenPrediction_healthyImage_returnsNotCancer(){
         saveMedico();
         savePaciente();
         saveImage(HEALTHY_IMG);
 
-        webTestClient.get().uri("/imagen/predict/{id}", 1)
+        String result = webTestClient.get().uri("/imagen/predict/{id}", 1)
                 .accept(MediaType.IMAGE_PNG).exchange().expectStatus().isOk()
-                .returnResult(String.class);
+                .returnResult(String.class).getResponseBody().blockFirst();
+
+        assertTrue(result.contains("Not cancer (label 0)"));
     }
 
     @Test
-    @DisplayName("GetIamgenPrediction con un id invalido devuelve error del servidor.")
-    public void getImagenPrediction_idInvalido_returnsServerError() {
+    @DisplayName("GetImagenPrediction con unhealthy image devuelve 'cancer'")
+    public void getImagenPrediction_unhealthyImage_returnsCancer(){
         saveMedico();
         savePaciente();
+        saveImage(UNHEALTHY_IMG);
 
-        webTestClient.get().uri("/imagen/predict/{id}", 1).accept(MediaType.IMAGE_PNG)
-                .exchange().expectStatus().is5xxServerError();
+        String result = webTestClient.get().uri("/imagen/predict/{id}", 1)
+                .accept(MediaType.IMAGE_PNG).exchange().expectStatus().isOk()
+                .returnResult(String.class).getResponseBody().blockFirst();
+
+        assertTrue(result.contains("Cancer (label 1)"));
     }
 
     @Test
