@@ -9,6 +9,7 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.test.web.servlet.MockMvc;
 
@@ -38,7 +39,7 @@ public class PacienteControllerIT extends AbstractIntegration {
             //Assert
             mockMvc.perform(get("/paciente/"+paciente.getId()))
                     .andExpect(status().is2xxSuccessful())
-                    .andExpect(content().contentType("application/json"))
+                    .andExpect(content().contentType(MediaType.APPLICATION_JSON))
                     .andExpect(jsonPath("$.id", equalTo((int) paciente.getId())))
                     .andExpect(jsonPath("$.nombre", equalTo( paciente.getNombre())))
                     .andExpect(jsonPath("$.dni", equalTo( paciente.getDni())));
@@ -57,7 +58,7 @@ public class PacienteControllerIT extends AbstractIntegration {
             //Assert
             mockMvc.perform(get("/paciente/medico/"+medico.getId()))
                     .andExpect(status().is2xxSuccessful())
-                    .andExpect(content().contentType("application/json"))
+                    .andExpect(content().contentType(MediaType.APPLICATION_JSON))
                     .andExpect(jsonPath("$", hasSize(0)));
         }
 
@@ -72,7 +73,7 @@ public class PacienteControllerIT extends AbstractIntegration {
             //Assert
             mockMvc.perform(get("/paciente/medico/"+paciente1.getMedico().getId()))
                     .andExpect(status().is2xxSuccessful())
-                    .andExpect(content().contentType("application/json"))
+                    .andExpect(content().contentType(MediaType.APPLICATION_JSON))
                     .andExpect(jsonPath("$", hasSize(2)));
         }
     }
@@ -90,13 +91,13 @@ public class PacienteControllerIT extends AbstractIntegration {
             paciente.setMedico(medico);
 
             mockMvc.perform(post("/paciente")
-                            .contentType("application/json")
+                            .contentType(MediaType.APPLICATION_JSON)
                             .content(objectMapper.writeValueAsString(paciente)))
                     .andExpect(status().isCreated());
 
             mockMvc.perform(get("/paciente/"+paciente.getId()))
                     .andExpect(status().is2xxSuccessful())
-                    .andExpect(content().contentType("application/json"))
+                    .andExpect(content().contentType(MediaType.APPLICATION_JSON))
                     .andExpect(jsonPath("$.id", equalTo((int) paciente.getId())))
                     .andExpect(jsonPath("$.medico.id", equalTo((int) medico.getId())));
         }
@@ -116,7 +117,7 @@ public class PacienteControllerIT extends AbstractIntegration {
             paciente.setMedico(medico);
 
             mockMvc.perform(post("/paciente")
-                            .contentType("application/json")
+                            .contentType(MediaType.APPLICATION_JSON)
                             .content(objectMapper.writeValueAsString(paciente)))
                     .andExpect(status().isCreated());
 
@@ -124,13 +125,13 @@ public class PacienteControllerIT extends AbstractIntegration {
             paciente.setMedico(expectedMedico);
 
             mockMvc.perform(put("/paciente")
-                            .contentType("application/json")
+                            .contentType(MediaType.APPLICATION_JSON)
                             .content(objectMapper.writeValueAsString(paciente)))
                     .andExpect(status().is2xxSuccessful());
 
             mockMvc.perform(get("/paciente/"+paciente.getId()))
                     .andExpect(status().is2xxSuccessful())
-                    .andExpect(content().contentType("application/json"))
+                    .andExpect(content().contentType(MediaType.APPLICATION_JSON))
                     .andExpect(jsonPath("$.id", equalTo((int) paciente.getId())))
                     .andExpect(jsonPath("$.medico.id", equalTo((int) expectedMedico.getId())));
         }
@@ -147,7 +148,7 @@ public class PacienteControllerIT extends AbstractIntegration {
             paciente.setNombre("Alumno");
             paciente.setDni(Integer.toString(1));
             mockMvc.perform(post("/paciente")
-                            .contentType("application/json")
+                            .contentType(MediaType.APPLICATION_JSON)
                             .content(objectMapper.writeValueAsString(paciente)))
                     .andExpect(status().isCreated());
 
@@ -166,7 +167,7 @@ public class PacienteControllerIT extends AbstractIntegration {
         paciente.setCita("15-6-2024");
         paciente.setMedico(crearMedico(1));
         this.mockMvc.perform(post("/paciente")
-                        .contentType("application/json")
+                        .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(paciente)))
                 .andExpect(status().isCreated());
         return paciente;
@@ -176,7 +177,7 @@ public class PacienteControllerIT extends AbstractIntegration {
         Medico medico = new Medico();
         medico.setId(medicoId);
         mockMvc.perform(post("/medico")
-                .contentType("application/json")
+                .contentType(MediaType.APPLICATION_JSON)
                 .content(objectMapper.writeValueAsString(medico)))
                 .andExpect(status().isCreated());
 
