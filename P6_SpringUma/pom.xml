@@ -9,7 +9,7 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.uma.example</groupId>
-	<artifactId>Practica6</artifactId>
+	<artifactId>P6_SpringUma</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<packaging>war</packaging>
 	<name>springuma</name>
