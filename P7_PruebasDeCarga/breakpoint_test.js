@@ -1,8 +1,8 @@
 import http from "k6/http";
 import { sleep, check } from "k6";
 
-export const options = {
-//   scenarios: {
+export const options = {  // Quitando las lineas comentadas se hace el test con executor y sin ellas se hace el test sin executor
+//   scenarios: { 
 //     breakpoint: {
 //       executor: "ramping-arrival-rate", // Incrementa la carga exponencial
 //       preAllocatedVUs: 1000, //VUs alocados inicialmente

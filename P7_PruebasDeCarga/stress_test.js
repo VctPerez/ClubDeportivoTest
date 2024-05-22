@@ -5,9 +5,9 @@ const maxVU = 10000;
 
 export const options = {
     stages: [
-    { duration: '3m', target: maxVU * 0.8 }, // subimos a un carga de estres de 2000 vu en 10 minutos
-    { duration: '3m', target: maxVU * 0.8 }, // nos mantenemos a 2000 por 30 minutos
-    { duration: '2m', target: 0 }, // bajamos a 0 
+    { duration: '3m', target: maxVU * 0.8 },
+    { duration: '3m', target: maxVU * 0.8 },
+    { duration: '2m', target: 0 },
     ],
     thresholds: {
         http_req_failed: [{
