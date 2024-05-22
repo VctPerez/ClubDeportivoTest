@@ -1,0 +1,8 @@
+2024-05-22 10:40:44.992760+02:00 jdbc[13]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Error de Sintaxis en sentencia SQL "SELECT * [*]MEDICO"
+Syntax error in SQL statement "SELECT * [*]MEDICO"; SQL statement:
+SELECT * MEDICO [42000-224]
+2024-05-22 10:42:02.163962+02:00 jdbc[13]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Tabla "MEDICOS" no encontrada
+Table "MEDICOS" not found; SQL statement:
+SELECT * FROM MEDICOS [42102-224]
