@@ -20,9 +20,9 @@ export const options = {
 
 export default async () => {
   const dni = "222222222";
-  const nombre = "Ibai Mason";
+  const nombre = "Ibai";
   const edad = "25";
-  const cita = "nunca";
+  const cita = "mañana";
   const page = browser.newPage();
   try {
     await page.goto("http://localhost:4200");
@@ -50,16 +50,15 @@ export default async () => {
     page.locator('input[name="cita"]').type(cita);
     sleep(1);
 
-    
-
     const createButton = page.locator('button[type="submit"]');
-    await Promise.all([page.waitForNavigation(), createButton.click()]);
+    await Promise.all([page.waitForNavigation({waitUntil:
+      'networkidle'}), createButton.click()]);
 
-    let len = page.$$("table tbody tr").length;
+      sleep(3);
 
     check(page, {
-      dni: (p) => p.$$("table tbody tr")[len - 1].$('td[name="dni"]').textContent() === dni,
-      nombre: (p) => p.$$("table tbody tr")[len - 1].$('td[name="nombre"]').textContent() === nombre,
+      "dni correcto": (p) => p.$("table tbody tr:last-child td[title='"+dni+"']").textContent().trim() == dni,
+      "nombre correcto" : (p) => p.$("table tbody tr:last-child td[title='"+nombre+"']").textContent().trim() == nombre,
     });
   } finally {
     page.close();
